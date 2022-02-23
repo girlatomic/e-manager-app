@@ -25,6 +25,23 @@ router.get("/:id", async (req, res, next) => {
     } catch (err) {
       res.status(500).send({ error: err.message });
     }
-  });
+});
+
+router.post("/", async (req, res, next) => {
+    let { model, brand, client_id } = req.body;
+    let sql = `
+      INSERT INTO repairs (model, brand)
+      VALUES ('${model}', ${client_id})
+    `;
+  
+    try {
+      await db(sql);
+      let result = await db("SELECT * FROM repairs"); // get new list
+      res.send(result.data);
+    } catch (err) {
+      res.status(500).send({ error: err.message });
+    }
+});
+
 
 module.exports = router;

@@ -27,4 +27,20 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  let { first_name, last_name, phone } = req.body;
+  let sql = `
+    INSERT INTO clients (first_name, last_name, phone)
+    VALUES ('${first_name}', '${last_name}', ${phone})
+  `;
+
+  try {
+    await db(sql);
+    let result = await db("SELECT * FROM clients"); // get new list
+    res.send(result.data);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
 module.exports = router;
