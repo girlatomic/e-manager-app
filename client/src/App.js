@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom';
+import Sidebar from "./components/Sidebar";
+import Navbar from "./components/Navbar";
+import Clients from "./pages/Clients";
+import Repairs from "./pages/Repairs";
 import './App.css';
 
 export default function App() {
@@ -38,27 +42,20 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>eManager</h1>
+      <Navbar />
+      
+      <div className="flex">
+        <Sidebar />
+        <div className="content">
+          <Routes>
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/repairs" element={<Repairs />} />
+          </Routes>
+      </div>
 
-      <h2>Clients</h2>
-      <ul>
-      {
-        clients.map(c => (
-         <li ley={c.id}>{c.first_name} {c.last_name}</li>
-         ))
-      }
-      </ul>
-
-      <h2>Repairs</h2>
-      <ul>
-      {
-        repairs.map(r => (
-         <li ley={r.id}>{r.model} {r.brand}</li>
-         ))
-      }
-      </ul>
+      </div>
       
     </div>
   );
-}
 
+}
