@@ -13,10 +13,9 @@ function Repairs(props) {
             <th>id</th>
             <th>model</th>
             <th>brand</th>
-            <th>client id</th>
-            <th>client</th>
-            <th>status</th>
             <th>serial number</th>
+            <th>status</th>
+            <th>client name</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +25,9 @@ function Repairs(props) {
                 <td>{r.id}</td>
                 <td>{r.model}</td>
                 <td>{r.brand}</td>
-                <td>{r.client_id}</td>
+                <td>{r.serial_number}</td>
+                <td>{r.repair_status}</td>
+                <td>{r.first_name} {r.last_name}</td>
               </tr>
             ))
           }

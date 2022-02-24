@@ -6,7 +6,7 @@ table {
     display: table;
     box-sizing: border-box;
     color: -internal-quirk-inherit;
-    text-align: left;
+    text-align: center;
     border-color: grey;
     font-variant: normal;
 }
@@ -15,9 +15,10 @@ table thead {
     background: #e6e6e6;
     color: #000;
     text-align: center;
+    margin-left: 20px;
     vertical-align: bottom;
     display: table-header-group;
-    padding:2px
+    padding:20px
 }
 
 tr {

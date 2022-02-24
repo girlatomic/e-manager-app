@@ -28,10 +28,10 @@ router.get("/:id", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-    let { model, brand, client_id } = req.body;
+    let { model, brand, serial_number, repair_status, client_id } = req.body;
     let sql = `
-      INSERT INTO repairs (model, brand, client_id)
-      VALUES ('${model}','${brand}', ${client_id})
+      INSERT INTO repairs (model, brand, serial_number, repair_status, client_id)
+      VALUES ('${model}','${brand}', '${serial_number}', '${repair_status}', ${client_id})
     `;
   
     try {
