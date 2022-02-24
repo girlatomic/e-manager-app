@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Clients from "./pages/Clients";
 import Repairs from "./pages/Repairs";
+import AddClientView from "./pages/AddClientView";
 import './App.css';
 
 export default function App() {
@@ -48,8 +49,9 @@ export default function App() {
         <Sidebar />
         <div className="content">
           <Routes>
-            <Route path="/clients" element={<Clients />} />
+            <Route path="/clients" element={<Clients clients={clients} />} />
             <Route path="/repairs" element={<Repairs />} />
+            <Route path="/add-client" element={<AddClientView />} />
           </Routes>
       </div>
 
