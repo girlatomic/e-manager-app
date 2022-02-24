@@ -1,36 +1,60 @@
 import React, { useState } from 'react';
 
+const INIT_STATE = {
+    first_name: '',
+    last_name: '',
+    phone: ''
+};
 
-function AddUserView(props) {
-    const [userName, setUserName] = useState('');
-
-    function handleChange(event) {
-        setUserName(event.target.value);
-    }
+function AddClientView(props) {
+    const [formData, setFormData] = useState(INIT_STATE);
 
     function handleSubmit(event) {
-        event.preventDefault();
-        props.addUserCb(userName);
-        setUserName('');
+      event.preventDefault();
+      props.addClientCb(formData);
+      setFormData(INIT_STATE);
     }
-
+  
+    function handleChange(event) {
+      let { name, value } = event.target;
+      setFormData(data => ({
+        ...data,
+        [name]: value
+      }));
+    }
+  
     return (
-        <div className="AddUserView">
-            <h2>Add Client</h2>
-            <form onSubmit={handleSubmit}>
-                <label>Name
-                    <input
-                        type="text"
-                        value={userName}
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
-                
-                <button type="submit">Add User</button>
-            </form>
-        </div>
+     <div>
+        <h2>New Client Form</h2>
+        <form className="ClientForm" onSubmit={handleSubmit}>
+            <input
+            placeholder="First Name"
+            type="text"
+            name="first_name"
+            value={formData.first_name}
+            onChange={handleChange}
+            />
+    
+            <input
+            placeholder="Last Name"
+            type="text"
+            name="last_name"
+            value={formData.last_name}
+            onChange={handleChange}
+            />
+
+            <input
+            placeholder="Phone number"
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            />
+    
+            <button type="submit">Add</button>
+        </form>
+      </div>
     );
 }
 
-export default AddUserView;
+export default AddClientView;

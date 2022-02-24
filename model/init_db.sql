@@ -5,14 +5,16 @@ CREATE TABLE repairs (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     model VARCHAR(250) NOT NULL,
     brand VARCHAR(250) NOT NULL,
+    serial_number VARCHAR(250) NOT NULL,
+    repair_status VARCHAR(250) NOT NULL,
     client_id INT NOT NULL,
     FOREIGN KEY (client_id) REFERENCES clients(id)
 );
 
-INSERT INTO repairs (model, brand, client_id)
+INSERT INTO repairs (model, brand, serial_number, repair_status, client_id)
 VALUES
-    ('iphone X', 'Apple', 1),
-    ('Galaxy S22', 'Samsung', 2);
+    ('iphone X', 'Apple', '0237BAD7JL8', 'delivered', 1),
+    ('Galaxy S22', 'Samsung', '078583920HA', 'in progress', 2);
 
 
 SET foreign_key_checks = 0;
@@ -22,7 +24,7 @@ CREATE TABLE clients (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(250) NOT NULL,
     last_name VARCHAR(250) NOT NULL,
-    phone INT NOT NULL
+    phone VARCHAR(250) NOT NULL
 );
 
 INSERT INTO clients (first_name, last_name, phone)

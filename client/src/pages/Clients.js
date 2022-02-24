@@ -7,7 +7,7 @@ function Clients(props) {
     <div className="clients-view">
       <h1>Clients</h1>
       <br/>
-      <Link to="/add-client">Add client</Link>
+      <Link to="/add-client">+ Add New client</Link>
       <table className="client-list">
         <thead>
           <tr>

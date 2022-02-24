@@ -4,7 +4,7 @@ const db = require("../model/helper");
 
 /* GET repairs listing. */
 router.get('/', function(req, res, next) {
-  db("SELECT * FROM repairs;")
+  db("SELECT r.*, c.first_name, c.last_name FROM repairs AS r JOIN clients AS c ON r.client_id = c.id;")
     .then(results => {
       res.send(results.data);
     })
