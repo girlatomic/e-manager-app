@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Col, Container, Row } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 function Repairs(props) {
+
   return (
-    <div className="repairs-view">
+    <Container>
       <h1>Repairs</h1>
       <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
@@ -14,9 +17,12 @@ function Repairs(props) {
           </form>
         </div>
      </nav>
-      <br/>
-      <Link to="/add-repair">+ Add Repair</Link>
-      <table classNameName="repair-list">
+     <Row>
+      <Col className="text-center mt-5 mb-2">
+        <Link to="/add-repair" className="btn btn-primary" role="button">Add Repair</Link>
+      </Col>
+     </Row>
+      <Table bordered>
         <thead>
           <tr>
             <th>id</th>
@@ -41,8 +47,8 @@ function Repairs(props) {
             ))
           }
         </tbody>
-      </table>
-    </div>
+      </Table>
+    </Container>
   );
 }
 
