@@ -49,7 +49,6 @@ export default function App() {
     let options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(client)
     };
 
     try {
@@ -67,6 +66,30 @@ export default function App() {
     navigate('/clients');
   }
 
+  async function addRepair(repair) {
+    //console.log('ADDI Repair', repair);
+
+    let options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(repair)
+    };
+
+    try {
+      let response = await fetch("/repairs", options);
+      if (response.ok) {
+        let data = await response.json();
+        setRepairs(data);
+      } else {
+        console.log(`Server error: ${response.status} ${response.statusText}`);
+      }
+    } catch (err) {
+      console.log(`Server error: ${err.message}`);
+    }
+
+    navigate('/repairs');
+  }
+
   return (
     <div className="App">
       <Navbar />
@@ -78,7 +101,7 @@ export default function App() {
             <Route path="/clients" element={<Clients clients={clients} />} />
             <Route path="/repairs" element={<Repairs repairs={repairs} />} />
             <Route path="/add-client" element={<AddClientView addClientCb={client => addClient(client)} />} />
-            <Route path="add-repair" element={<AddRepairView/>} />
+            <Route path="add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} />
           </Routes>
       </div>
 
