@@ -12,7 +12,25 @@ import './App.css';
 export default function App() {
   let [clients, setClients] = useState([]);
   let [repairs, setRepairs] = useState([]);
+  let [searchTerm, setSearchTerm] = useState("");
+  let [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
+
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if(searchTerm !== "") {
+      const newContactList = clients.filter((contact) => {
+       return Object.values(contact)
+        .join(" ")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+    }
+    else {
+      setSearchResults(clients);
+    }
+  };
 
   useEffect(() => {
     getClients();
@@ -99,7 +117,10 @@ export default function App() {
         <Sidebar />
         <div className="content">
           <Routes>
-            <Route path="/clients" element={<Clients clients={clients} />} />
+            <Route path="/clients" element={<Clients 
+            clients={searchTerm.length < 1 ? clients : searchResults} 
+            term={searchTerm} 
+            searchKeyword={searchHandler} />} />
             <Route path="/repairs" element={<Repairs repairs={repairs} />} />
             <Route path="/add-client" element={<AddClientView addClientCb={client => addClient(client)} />} />
             <Route path="add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} />
