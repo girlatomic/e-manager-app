@@ -12,8 +12,13 @@ import './App.css';
 export default function App() {
   let [clients, setClients] = useState([]);
   let [repairs, setRepairs] = useState([]);
+
   let [searchTerm, setSearchTerm] = useState("");
   let [searchResults, setSearchResults] = useState([]);
+
+  let [searchRterm, setSearchRterm] = useState("");
+  let [searchRresults, setSearchRresults] = useState([]);
+
   const navigate = useNavigate();
 
   const searchHandler = (searchTerm) => {
@@ -29,6 +34,22 @@ export default function App() {
     }
     else {
       setSearchResults(clients);
+    }
+  };
+
+  const searchRepairHandler = (searchRterm) => {
+    setSearchRterm(searchRterm);
+    if(searchRterm !== "") {
+      const newRepairList = repairs.filter((repair) => {
+       return Object.values(repair)
+        .join(" ")
+        .toLowerCase()
+        .includes(searchRterm.toLowerCase());
+      });
+      setSearchRresults(newRepairList);
+    }
+    else {
+      setSearchRresults(repairs);
     }
   };
 
@@ -122,7 +143,10 @@ export default function App() {
             clients={searchTerm.length < 1 ? clients : searchResults} 
             term={searchTerm} 
             searchKeyword={searchHandler} />} />
-            <Route path="/repairs" element={<Repairs repairs={repairs} />} />
+            <Route path="/repairs" element={<Repairs 
+            repairs={searchRterm.length < 1 ? repairs : searchRresults } 
+            repairTerm={searchRterm}
+            searchRepKeyword={searchRepairHandler} />} />
             <Route path="/add-client" element={<AddClientView addClientCb={client => addClient(client)} />} />
             <Route path="add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} />
           </Routes>

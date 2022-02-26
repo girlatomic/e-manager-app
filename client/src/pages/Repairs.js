@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, {useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 
 function Repairs(props) {
+  const inputEl = useRef("");
+  const getRepairSearchTerm = () => {
+    props.searchRepKeyword(inputEl.current.value);
+  };
 
   return (
     <Container>
@@ -12,11 +16,15 @@ function Repairs(props) {
         <div className="container-fluid">
           <a className="navbar-brand"></a>
           <form className="d-flex">
-            <input 
-            type="text" 
+            <input
+            className="form-control me-2"
+            ref={inputEl}
+            placeholder="Search..."
+            type="text"
+            value={props.term}
+            onChange={getRepairSearchTerm}
             aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
      </nav>

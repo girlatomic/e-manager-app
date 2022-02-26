@@ -3,6 +3,8 @@ import './Clients.css'
 import { Link } from 'react-router-dom';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
+import * as AiIcons from 'react-icons/ai';
+
 
 function Clients(props) {
   const inputEl = useRef("");
@@ -19,8 +21,9 @@ function Clients(props) {
        </Col>
      </Row>
      <Row>
-       <div>
+       <div className="input-group mb-3">
          <input
+          className="form-control me-2"
           ref={inputEl}
           type="text" 
           placeholder="Search"
