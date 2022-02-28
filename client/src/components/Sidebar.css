@@ -12,9 +12,9 @@
 }
   
 .nav-menu {
-    background-color:#122ecd;
+    background-color:#07166c;
     width: 250px;
-    height: auto;
+    height: 110vh;
     display: flex;
     justify-content: center;
     /* position: fixed;

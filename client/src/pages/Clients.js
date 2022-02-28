@@ -3,6 +3,7 @@ import './Clients.css'
 import { Link } from 'react-router-dom';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
+import * as IoIcons from 'react-icons/io';
 
 
 function Clients(props) {
@@ -13,7 +14,7 @@ function Clients(props) {
 
   return (
     <Container>
-      <h2>Clients</h2>
+      <h2><IoIcons.IoMdPeople />Clients</h2>
      <Row>
        <Col className="text-start mt-5 mb-5">
          <Link to="/add-client" className="btn btn-primary" role="button"> + Add New client</Link>

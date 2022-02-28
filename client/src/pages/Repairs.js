@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
+import * as AiIcons from 'react-icons/ai';
 
 function Repairs(props) {
   const inputEl = useRef("");
@@ -11,7 +12,7 @@ function Repairs(props) {
 
   return (
     <Container>
-      <h2>Repairs</h2>
+      <h2><AiIcons.AiFillTool />Repairs</h2>
       <Row>
         <Col className="text-start mt-5 mb-5">
           <Link to="/add-repair" className="btn btn-primary" role="button">+ Add Repair</Link>

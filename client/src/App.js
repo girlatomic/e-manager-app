@@ -8,7 +8,6 @@ import Repairs from "./pages/Repairs";
 import AddClientView from "./pages/AddClientView";
 import AddRepairView from "./pages/AddRepairView";
 import './App.css';
-import EditClientView from "./pages/EditClientView";
 
 export default function App() {
   let [clients, setClients] = useState([]);
@@ -133,29 +132,6 @@ export default function App() {
     navigate('/repairs');
   }
 
-  async function editClient(client) {
-    console.log('this is client', client);
-    
-    let options = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(client)
-    };
-
-    try {
-      let response = await fetch(`/clients/${client.id}`, options);
-      console.log('this is response', response);
-      if (response.ok) {
-        let data = await response.json();
-        setClients(data);
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Server error: ${err.message}`);
-    }
-  }
-
   return (
     <div className="App">
       <Navbar />
@@ -173,7 +149,6 @@ export default function App() {
             repairTerm={searchRterm}
             searchRepKeyword={searchRepairHandler} />} />
             <Route path="/add-client" element={<AddClientView addClientCb={client => addClient(client)} />} />
-            <Route path="/edit-client/:id" element={<EditClientView editClientCb={id => editClient(id)}/>} />
             <Route path="/add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} />
           </Routes>
       </div>

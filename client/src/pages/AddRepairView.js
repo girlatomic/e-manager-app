@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import * as AiIcons from 'react-icons/ai';
 
 const INIT_STATE = {
   model: '',
@@ -32,7 +33,7 @@ function AddRepairView(props) {
      
      <form className="row m-4 rounded" onSubmit={handleSubmit}>
         <div className="mb-5">
-          <h2>New Repair Order</h2>
+          <h2><AiIcons.AiOutlineForm/>New Repair Order</h2>
         </div>
         <div className="mb-4 col-6">
           <label htmlFor="inputModel" className="form-label">Model</label>
