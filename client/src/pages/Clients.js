@@ -3,7 +3,6 @@ import './Clients.css'
 import { Link } from 'react-router-dom';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
-import * as AiIcons from 'react-icons/ai';
 
 
 function Clients(props) {
@@ -14,14 +13,13 @@ function Clients(props) {
 
   return (
     <Container>
-      <h1>Clients</h1>
+      <h2>Clients</h2>
      <Row>
-       <Col className="text-center mt-5 mb-2">
-         <Link to="/add-client" className="btn btn-primary" role="button">Add New client</Link>
+       <Col className="text-start mt-5 mb-5">
+         <Link to="/add-client" className="btn btn-primary" role="button"> + Add New client</Link>
        </Col>
-     </Row>
-     <Row>
-       <div className="input-group mb-3">
+       <Col>
+       <div className="input-group mt-5 mb-5">
          <input
           className="form-control me-2"
           ref={inputEl}
@@ -31,6 +29,7 @@ function Clients(props) {
           onChange={getSearchTerm}
          />
        </div>
+       </Col>
      </Row>
         <Table bordered>
           <thead>
@@ -39,6 +38,7 @@ function Clients(props) {
               <th>first name</th>
               <th>last name</th>
               <th>phone</th>
+              <th>actions</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +49,9 @@ function Clients(props) {
                   <td>{c.first_name}</td>
                   <td>{c.last_name}</td>
                   <td>{c.phone}</td>
+                  <td>
+                    <Link to={`/edit-client/${c.id}`} type="button" className="btn btn-success btn-sm">Edit</Link>
+                  </td>
                 </tr>
               ))
             }

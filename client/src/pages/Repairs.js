@@ -11,28 +11,26 @@ function Repairs(props) {
 
   return (
     <Container>
-      <h1>Repairs</h1>
-      <nav className="navbar navbar-light bg-light">
-        <div className="container-fluid">
-          <a className="navbar-brand"></a>
-          <form className="d-flex">
-            <input
-            className="form-control me-2"
-            ref={inputEl}
-            placeholder="Search..."
-            type="text"
-            value={props.term}
-            onChange={getRepairSearchTerm}
-            aria-label="Search"
-            />
-          </form>
-        </div>
-     </nav>
-     <Row>
-      <Col className="text-center mt-5 mb-2">
-        <Link to="/add-repair" className="btn btn-primary" role="button">Add Repair</Link>
-      </Col>
+      <h2>Repairs</h2>
+      <Row>
+        <Col className="text-start mt-5 mb-5">
+          <Link to="/add-repair" className="btn btn-primary" role="button">+ Add Repair</Link>
+        </Col>
+        <Col>
+       <div className="input-group mt-5 mb-5">
+                <input
+                className="form-control me-2"
+                ref={inputEl}
+                placeholder="Search..."
+                type="text"
+                value={props.term}
+                onChange={getRepairSearchTerm}
+                aria-label="Search"
+                />
+            </div>
+        </Col>
      </Row>
+
       <Table bordered>
         <thead>
           <tr>

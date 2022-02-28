@@ -43,4 +43,28 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.put("/:id", async (req, res, next) => {
+  let clientId = req.params.id;
+  let { first_name, last_name, phone } = req.body;
+  let sql = `
+        UPDATE clients
+        SET first_name = '${first_name}', last_name = '${last_name}', phone = '${phone}'
+        WHERE id = ${clientId}
+      `;
+
+  try {
+    let result = await db(`SELECT * FROM clients WHERE id = ${clientId}`);
+    if (result.data.length === 0) {
+      res.status(404).send({ error: "Client not found" });
+    } else {
+      await db(sql);
+      let result = await db("SELECT * FROM clients");
+      let clients = result.data;
+      res.send(clients);
+    }
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
+});
+
 module.exports = router;

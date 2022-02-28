@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import Clients from "./pages/Clients";
 import Repairs from "./pages/Repairs";
 import AddClientView from "./pages/AddClientView";
 import AddRepairView from "./pages/AddRepairView";
 import './App.css';
+import EditClientView from "./pages/EditClientView";
 
 export default function App() {
   let [clients, setClients] = useState([]);
@@ -61,6 +62,8 @@ export default function App() {
     getRepairs();
   }, []);
 
+
+
   const getClients = () => {
     fetch("/clients")
       .then(response => response.json())
@@ -71,6 +74,7 @@ export default function App() {
         console.log(error);
       });
   };
+
 
   const getRepairs = () => {
     fetch("/repairs")
@@ -108,8 +112,6 @@ export default function App() {
   }
 
   async function addRepair(repair) {
-    //console.log('ADDI Repair', repair);
-
     let options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -131,14 +133,37 @@ export default function App() {
     navigate('/repairs');
   }
 
+  // async function editClient(client) {
+  //   console.log('this is client', client);
+    
+  //   let options = {
+  //     method: "PUT",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(client)
+  //   };
+
+  //   try {
+  //     let response = await fetch(`/clients/${client.id}`, options);
+  //     console.log('this is response', response);
+  //     if (response.ok) {
+  //       let data = await response.json();
+  //       setClients(data);
+  //     } else {
+  //       console.log(`Server error: ${response.status} ${response.statusText}`);
+  //     }
+  //   } catch (err) {
+  //     console.log(`Server error: ${err.message}`);
+  //   }
+  // }
+
   return (
     <div className="App">
       <Navbar />
-      
       <div className="flex">
         <Sidebar />
         <div className="content">
           <Routes>
+            <Route path="/" element={<Home/>} />
             <Route path="/clients" element={<Clients 
             clients={searchTerm.length < 1 ? clients : searchResults} 
             term={searchTerm} 
@@ -148,7 +173,8 @@ export default function App() {
             repairTerm={searchRterm}
             searchRepKeyword={searchRepairHandler} />} />
             <Route path="/add-client" element={<AddClientView addClientCb={client => addClient(client)} />} />
-            <Route path="add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} />
+            {/* <Route path="/edit-client/:id" element={<EditClientView editClientCb={id => editClient(id)}/>} /> */}
+            <Route path="/add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} />
           </Routes>
       </div>
 

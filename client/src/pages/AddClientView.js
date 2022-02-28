@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Form, Container } from 'react-bootstrap';
 
 const INIT_STATE = {
     first_name: '',
@@ -25,36 +25,48 @@ function AddClientView(props) {
     }
   
     return (
-     <div>
-        <h2>New Client Form</h2>
-        <Form onSubmit={handleSubmit}>
-            <input
-            placeholder="First Name"
-            type="text"
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleChange}
-            />
-    
-            <input
-            placeholder="Last Name"
-            type="text"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            />
+     <Container className="addClientView">
+        
+        <form className="row m-4 rounded" onSubmit={handleSubmit}>
+          <div className="mb-5 col-md-7 offset-md-2">
+            <h2>New Client Form</h2>
+          </div>
+          <div className="mb-4 col-md-7 offset-md-2">
+            <label htmlFor="inputName" className="form-label">First Name</label>
+              <input
+              type="text"
+              name="first_name"
+              value={formData.first_name}
+              className="form-control"
+              onChange={handleChange}
+              />
+            </div>
+            <div className="mb-4 col-md-7 offset-md-2">
+              <label htmlFor="inputLastName" className="form-label">Last Name</label>
+              <input
+              type="text"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+              className="form-control"
+              />
+            </div>
+            <div className="mb-4 col-md-7 offset-md-2">
+              <label htmlFor="inputPhone" className="form-label">Phone Number</label>
+              <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="form-control"
+              />
+            </div>
 
-            <input
-            placeholder="Phone number"
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            />
-    
-            <button type="submit">Add</button>
-        </Form>
-      </div>
+            <div className="col-md-6 offset-md-5">
+              <button type="submit" className="btn btn-primary">Add</button>
+            </div>
+        </form>
+      </Container>
     );
 }
 
