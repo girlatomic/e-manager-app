@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
   
     try {
       await db(sql);
-      let result = await db("SELECT * FROM repairs"); // get new list
+      let result = await db("SELECT r.*, c.first_name, c.last_name FROM repairs AS r JOIN clients AS c ON r.client_id = c.id;"); // get new list
       res.send(result.data);
     } catch (err) {
       res.status(500).send({ error: err.message });
