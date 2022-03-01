@@ -1,6 +1,6 @@
 # WELCOME TO E-MANAGER APP
 
-A place to keep all your contacts and new repair orders in place and organized!
+A Management solution to keep all your clients and repair orders in place and organized!
 
 ## Setup
 
@@ -17,3 +17,7 @@ A place to keep all your contacts and new repair orders in place and organized!
 
 - Run `npm start` in project directory to start the Express server on port 5000
 - In another terminal, do `cd client` and run `npm start` to start the client in development mode with hot reloading in port 3000.
+
+## Notes
+
+_This is a student project that was created at [CodeOp](http://CodeOp.tech), a full stack development bootcamp in Barcelona._
