@@ -55,13 +55,8 @@ export default function App() {
 
   useEffect(() => {
     getClients();
-  }, []);
-
-  useEffect(() => {
     getRepairs();
   }, []);
-
-
 
   const getClients = () => {
     fetch("/clients")
@@ -135,7 +130,7 @@ export default function App() {
   return (
     <div className="App">
       <Navbar />
-      <div className="flex">
+      <div className="d-flex">
         <Sidebar />
         <div className="content">
           <Routes>

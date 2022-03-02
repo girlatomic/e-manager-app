@@ -35,11 +35,11 @@ function Clients(props) {
         <Table bordered>
           <thead>
             <tr>
-              <th>id</th>
-              <th>first name</th>
-              <th>last name</th>
-              <th>phone</th>
-              <th>actions</th>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Phone</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +51,8 @@ function Clients(props) {
                   <td>{c.last_name}</td>
                   <td>{c.phone}</td>
                   <td>
-                    <Link to={`/edit-client/${c.id}`} type="button" className="btn btn-success btn-sm">Edit</Link>
+                    <Link to={`/edit-client/${c.id}`} type="button" className="btn btn-primary btn-sm">Edit</Link>
+                    <Link to={`/edit-client/${c.id}`} type="button" className="btn btn-danger btn-sm">Delete</Link>
                   </td>
                 </tr>
               ))

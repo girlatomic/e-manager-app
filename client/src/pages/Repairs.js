@@ -35,12 +35,12 @@ function Repairs(props) {
       <Table bordered>
         <thead>
           <tr>
-            <th>id</th>
-            <th>model</th>
-            <th>brand</th>
-            <th>serial number</th>
-            <th>status</th>
-            <th>client name</th>
+            <th>ID</th>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Serial number</th>
+            <th>Status</th>
+            <th>Client name</th>
           </tr>
         </thead>
         <tbody>

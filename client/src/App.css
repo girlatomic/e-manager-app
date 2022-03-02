@@ -7,10 +7,6 @@
   font-family: 'Lato', sans-serif;
 }
 
-.flex {
-  display: flex;
-}
-
 .content {
   display: flex;
   width: 100%;
@@ -26,11 +22,7 @@ h2 {
 }
 
 .home {
-  display: flex;
-  height: 100vh;
-  width: fill;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
   font-size: 5rem;
   background: linear-gradient(
     90deg,

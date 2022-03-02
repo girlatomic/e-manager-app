@@ -13,8 +13,8 @@ CREATE TABLE repairs (
 
 INSERT INTO repairs (model, brand, serial_number, repair_status, client_id)
 VALUES
-    ('iphone X', 'Apple', '0237BAD7JL8', 'delivered', 1),
-    ('Galaxy S22', 'Samsung', '078583920HA', 'in progress', 2);
+    ('iPhone X', 'Apple', '0237BAD7JL8', 'Delivered', 1),
+    ('Galaxy S22', 'Samsung', '078583920HA', 'In progress', 2);
 
 
 SET foreign_key_checks = 0;
