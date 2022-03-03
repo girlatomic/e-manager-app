@@ -1,13 +1,13 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
+import {Link} from 'react-router-dom';
 
 const Home = () => {
   return (
      <div className='home d-flex flex-column justify-content-center align-items-center'>
       <h1>Welcome to e·Manager!</h1>
       <div className="d-flex">
-      <button className="btn btn-primary me-3">Create New Account</button>
-      <button className="btn btn-primary">Log In</button>
+      <Link className="btn btn-primary me-3" to="/signup">Create New Account</Link>
+      <Link className="btn btn-primary" to="/login">Log In</Link>
       </div>
       
      </div>

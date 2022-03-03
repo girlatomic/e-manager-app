@@ -1,10 +1,5 @@
-.navbar {
+#navbar {
     background-color: #050e45;
     height: 80px;
-    display: flex;
-    justify-content: start;
-    align-items: center;
     color: rgb(140, 182, 255);
-    padding: 10px;
-    margin: 0;
 }

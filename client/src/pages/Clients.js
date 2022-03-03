@@ -1,15 +1,42 @@
-import React, {useRef} from 'react';
-import './Clients.css'
+import React, {useState, useEffect} from 'react';
+import './Clients.css';
+import API from "../helpers/API";
 import { Link } from 'react-router-dom';
-import { Col, Container, Form, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import * as IoIcons from 'react-icons/io';
 
 
 function Clients(props) {
-  const inputEl = useRef("");
-  const getSearchTerm = () => {
-    props.searchKeyword(inputEl.current.value);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [clients, setClients] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+  
+  useEffect(() => {
+    getClients();
+  }, []);
+
+  const getClients = async () => {
+      let response = await API.getContent('/clients');
+      console.log(response.data);
+      if (response.ok) {
+        setClients(response.data)
+      }
+      else {
+        setErrorMsg(response.error)
+      }
+    };
+
+  if (errorMsg) {
+    return <h2 style={{ color: 'red' }}>{errorMsg}</h2>
+  }
+
+  if (!clients) {
+    return <h2>Loading...</h2>;
+  } 
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value)
   };
 
   return (
@@ -17,17 +44,17 @@ function Clients(props) {
       <h2><IoIcons.IoMdPeople />Clients</h2>
      <Row>
        <Col className="text-start mt-5 mb-5">
-         <Link to="/add-client" className="btn btn-primary" role="button"> + Add New client</Link>
+         <Link to="/add-client" className="btn btn-primary" role="button"> + Add new client</Link>
        </Col>
        <Col>
        <div className="input-group mt-5 mb-5">
          <input
           className="form-control me-2"
-          ref={inputEl}
           type="text" 
           placeholder="Search"
-          value={props.term}
-          onChange={getSearchTerm}
+          name="search-term"
+          value={searchTerm}
+          onChange={(e) => handleSearch(e)}
          />
        </div>
        </Col>
@@ -44,7 +71,23 @@ function Clients(props) {
           </thead>
           <tbody>
             {
-              props.clients.map(c => (
+              clients
+                .filter (c => {
+                  if (searchTerm === "") {
+                    return c
+                  }
+                  else if (c.first_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return c
+                  }
+                  else if (c.last_name.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return c
+                  }
+                  else if (c.phone.toLowerCase().includes(searchTerm.toLowerCase())) {
+                    return c
+                  }
+                }
+                  )
+                .map(c => (
                 <tr key={c.id}>
                   <td>{c.id}</td>
                   <td>{c.first_name}</td>
@@ -52,7 +95,7 @@ function Clients(props) {
                   <td>{c.phone}</td>
                   <td>
                     <Link to={`/edit-client/${c.id}`} type="button" className="btn btn-primary btn-sm">Edit</Link>
-                    <Link to={`/edit-client/${c.id}`} type="button" className="btn btn-danger btn-sm">Delete</Link>
+                    <button className="btn btn-danger btn-sm">Delete</button>
                   </td>
                 </tr>
               ))

@@ -1,18 +1,36 @@
-import React, {useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
-import * as AiIcons from 'react-icons/ai';
+import {AiFillTool} from 'react-icons/ai';
+import API from "../helpers/API";
 
 function Repairs(props) {
-  const inputEl = useRef("");
-  const getRepairSearchTerm = () => {
-    props.searchRepKeyword(inputEl.current.value);
+  const [input, setInput] = useState("");
+  const [repairs, setRepairs] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    getRepairs();
+  }, []);
+
+  const getRepairs = async () => {
+    let response = await API.getContent('/repairs');
+    if (response.ok) {
+      setRepairs(response.data)
+    }
+    else {
+      setErrorMsg(response.error)
+    }
+  };
+
+  const handleSearch = (e) => {
+    setInput(e.target.value)
   };
 
   return (
     <Container>
-      <h2><AiIcons.AiFillTool />Repairs</h2>
+      <h2><AiFillTool/>Repairs</h2>
       <Row>
         <Col className="text-start mt-5 mb-5">
           <Link to="/add-repair" className="btn btn-primary" role="button">+ Add Repair</Link>
@@ -21,11 +39,11 @@ function Repairs(props) {
        <div className="input-group mt-5 mb-5">
                 <input
                 className="form-control me-2"
-                ref={inputEl}
+                name="input"
                 placeholder="Search..."
                 type="text"
-                value={props.term}
-                onChange={getRepairSearchTerm}
+                value={input}
+                onChange={(e) => handleSearch(e)}
                 aria-label="Search"
                 />
             </div>
@@ -45,7 +63,28 @@ function Repairs(props) {
         </thead>
         <tbody>
           {
-            props.repairs.map(r => (
+            repairs
+            .filter(r => {
+              if (input === "") {
+                return r
+              } 
+              else if (r.model.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.brand.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.serial_number.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.first_name.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.last_name.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+            })
+            .map(r => (
               <tr key={r.id}>
                 <td>{r.id}</td>
                 <td>{r.model}</td>

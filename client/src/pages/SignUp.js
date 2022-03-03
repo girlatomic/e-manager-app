@@ -7,9 +7,9 @@ const INIT_STATE = {
     password: ''
 };
 
-function AddClientView(props) {
+function SignUp(props) {
     const [formData, setFormData] = useState(INIT_STATE);
-
+  
     function handleSubmit(event) {
       event.preventDefault();
       props.addUserCb(formData);
@@ -29,11 +29,15 @@ function AddClientView(props) {
         
         <Form className="row m-4 rounded" onSubmit={handleSubmit}>
           <div className="mb-5 col-md-7 offset-md-2">
+            {props.submitSuccess && (
+              <div>Sign up successful! Click here to log in.</div>
+            )}
+            
             <h2>Add New User</h2>
           </div>
           <div className="mb-4 col-md-7 offset-md-2">
             <div className="mb-4 col-md-7 offset-md-2">
-              <label htmlFor="email" className="form-label">Emaill address</label>
+              <label htmlFor="email" className="form-label">Email address</label>
               <input
               type="text"
               name="email"
@@ -70,4 +74,4 @@ function AddClientView(props) {
     );
 }
 
-export default AddClientView;
+export default SignUp;

@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const db = require("../model/helper");
+const {ensureUserLoggedIn} = require("../middleware/guards");
 
 /* GET clients listing. */
-router.get('/', function(req, res, next) {
+router.get('/', ensureUserLoggedIn, function(req, res, next) {
   db("SELECT * FROM clients;")
     .then(results => {
       res.send(results.data);
