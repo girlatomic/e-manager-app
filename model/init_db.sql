@@ -5,23 +5,24 @@ CREATE TABLE users (
     userid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(10) NOT NULL UNIQUE,
     password VARCHAR(200) NOT NULL,
-    email VARCHAR(50) NOT NULL
+    email VARCHAR(50) NOT NULL,
+    usertype VARCHAR(50) NOT NULL
 );
 
 INSERT INTO `users` VALUES 
-    (1,'user1','$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W','user1@example.com'),
-    (2,'user2','$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6','user2@example.com'),
-    (3,'user3','$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy','user3@example.com');
+    (1,'user1','$2b$12$eFzMWbS9SogNtxkmo3J7aO8FQMFQSKbtpwLMIOVsF6GGKpTQdgq.W','user1@example.com', 'admin'),
+    (2,'user2','$2b$12$WZcGPyrkCvD5e8m0Qz/nFOdBryUcsp6uDlE2MDo/AjuBhPrQBCfI6','user2@example.com', 'user'),
+    (3,'user3','$2b$12$tiAz4eaXlpU.CdltUVvw6udLA2BWsitk5zXM2XOm2IpAeAiFfMCdy','user3@example.com', 'user');
 
 DROP TABLE IF EXISTS repairs;
 CREATE TABLE repairs (
-    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    repair_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     model VARCHAR(250) NOT NULL,
     brand VARCHAR(250) NOT NULL,
     serial_number VARCHAR(250) NOT NULL,
     repair_status VARCHAR(250) NOT NULL,
     client_id INT NOT NULL,
-    assignedto INT NOT NULL,
+    assignedto INT,
     FOREIGN KEY (client_id) REFERENCES clients(id),
     FOREIGN KEY (assignedto) REFERENCES users(userid)
 );

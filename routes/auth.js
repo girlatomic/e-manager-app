@@ -11,13 +11,13 @@ const db = require("../model/helper");
  **/
 
 router.post('/register', async (req, res, next) => {
-    let { username, password, email } = req.body;
+    let { username, password, email} = req.body;
     let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
     try {
         let sql = `
-            INSERT INTO users (username, password, email)
-            VALUES ('${username}', '${hashedPassword}', '${email}')
+            INSERT INTO users (username, password, email, usertype)
+            VALUES ('${username}', '${hashedPassword}', '${email}', 'user')
         `;
         await db(sql);
         res.send({ message: 'Registration succeeded' });
@@ -44,7 +44,8 @@ router.post('/login', async (req, res, next) => {
             let passwordsEqual = await bcrypt.compare(password, user.password);
             if (passwordsEqual) {
                 // Passwords match
-                let payload = { userid: user.userid };
+                let payload = { userid: user.userid,
+                                usertype: user.usertype };
                 // Create token containing user ID
                 let token = jwt.sign(payload, SECRET_KEY);
                 // Also return user (without password)

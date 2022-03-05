@@ -50,12 +50,28 @@ class API {
         return response;
     }
 
-    // Get all users
+    // Update user admin powers
 
-    static async getUsers() {
+    static async updateAdmin(userid, usertype) {
+        let updatedType = "";
+        if (usertype === "admin") {updatedType = "user"} else {updatedType = "admin"};
+        let updateUserObject = {
+            usertype: updatedType
+        }
+        // Prepare options
+        let options = { 
+            method: 'PATCH', 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(updateUserObject) 
+            };
+        // Add JWT token (if it exists) in case content is protected
+        let token = Local.getToken();
+        if (token) {
+            options.headers['Authorization'] = 'Bearer ' + token;
+        }
         let response;
         try {
-            response = await fetch('/users');
+            response = await fetch(`/users/update/${userid}`, options);
             if (response.ok) {
                 response.data = await response.json();
             } else {
@@ -83,6 +99,65 @@ class API {
         try {
             response = await fetch(route, options);
             console.log(response.ok);
+            if (response.ok) {
+                response.data = await response.json();
+            } else {
+                response.error = `Error ${response.status}: ${response.statusText}`;
+            }
+        } catch (err) {
+            response = { ok: false, error: err.message };
+        }
+
+        return response;
+    }
+
+    // General purpose delete
+
+    static async deleteContent(route) {
+        // Prepare options
+        let options = { 
+            method: 'DELETE', 
+            headers: {"Content-Type": "application/json"} 
+            };
+        // Add JWT token (if it exists) in case content is protected
+        let token = Local.getToken();
+        if (token) {
+            options.headers['Authorization'] = 'Bearer ' + token;
+        }
+        let response;
+        try {
+            response = await fetch(route, options);
+            console.log(response)
+            if (response.ok) {
+                response.data = await response.json();
+            } else {
+                response.error = `Error ${response.status}: ${response.statusText}`;
+            }
+        } catch (err) {
+            response = { ok: false, error: err.message };
+        }
+
+        return response;
+    }
+
+    // General purpose edit
+
+    static async updatedContent(route, updatedObject) {
+        // Prepare options
+        let options = { 
+            method: 'POST', 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(updatedObject) 
+            };
+        // Add JWT token (if it exists) in case content is protected
+        let token = Local.getToken();
+        if (token) {
+            options.headers['Authorization'] = 'Bearer ' + token;
+        }
+        let response;
+        try {
+            response = await fetch(route, options);
+            console.log(response)
             if (response.ok) {
                 response.data = await response.json();
             } else {

@@ -9,7 +9,7 @@ function Navbar(props) {
       <nav id="navbar" className="navbar stick-top">
         <div className="container-fluid">
             <div className="navbar-brand"><h3>e·Manager</h3></div>
-            
+              
               {props.user ? (
                 <div className="d-flex">
                 <div className="d-flex justify-content-center align-items-center me-3">Welcome, {props.user.username}!</div>

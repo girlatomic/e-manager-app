@@ -1,14 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import {AiFillTool} from 'react-icons/ai';
 import API from "../helpers/API";
+import AssignJobForm from '../components/AssignJobForm';
 
 function Repairs(props) {
   const [input, setInput] = useState("");
   const [repairs, setRepairs] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const jobToEdit = useRef({});
+  const [showReassign, setShowReassign] = useState(false)
 
   useEffect(() => {
     getRepairs();
@@ -27,6 +30,12 @@ function Repairs(props) {
   const handleSearch = (e) => {
     setInput(e.target.value)
   };
+
+  const getJobToEdit = (r.id) => {
+    
+
+    setShowReassign(true);
+  }
 
   return (
     <Container>
@@ -58,7 +67,9 @@ function Repairs(props) {
             <th>Brand</th>
             <th>Serial number</th>
             <th>Status</th>
+            <th>Assigned to</th>
             <th>Client name</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -91,12 +102,17 @@ function Repairs(props) {
                 <td>{r.brand}</td>
                 <td>{r.serial_number}</td>
                 <td>{r.repair_status}</td>
+                <td>{r.username}</td>
                 <td>{r.first_name} {r.last_name}</td>
+                <td><button className="btn btn-primary me-3" onClick={e => handleReassign(r.id)}>Reassign</button><button className="btn btn-primary">Edit</button></td>
               </tr>
             ))
           }
         </tbody>
       </Table>
+
+    {showReassign && <AssignJobForm jobtoEdit={jobToEdit} /> }
+    
     </Container>
   );
 }

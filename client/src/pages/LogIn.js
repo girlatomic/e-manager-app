@@ -51,7 +51,7 @@ const LogIn = (props) => {
             </div>
         
             <div className="col-md-6 offset-md-5">
-              <button type="submit" className="btn btn-primary">Add</button>
+              <button type="submit" className="btn btn-primary">Log In</button>
             </div>
         </form>
      </div>

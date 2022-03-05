@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import './Clients.css';
 import API from "../helpers/API";
 import { Link } from 'react-router-dom';
-import { Col, Container, Row } from 'react-bootstrap';
-import { Table } from 'react-bootstrap';
-import * as IoIcons from 'react-icons/io';
+import { Col, Container, Row, Table } from 'react-bootstrap';
+import {IoMdPeople} from 'react-icons/io';
 
 
 function Clients(props) {
@@ -41,7 +39,7 @@ function Clients(props) {
 
   return (
     <Container>
-      <h2><IoIcons.IoMdPeople />Clients</h2>
+      <h2><IoMdPeople />Clients</h2>
      <Row>
        <Col className="text-start mt-5 mb-5">
          <Link to="/add-client" className="btn btn-primary" role="button"> + Add new client</Link>

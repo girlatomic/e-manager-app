@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
 import Clients from "./pages/Clients";
 import Repairs from "./pages/Repairs";
 import AddClientView from "./pages/AddClientView";
@@ -11,8 +12,13 @@ import AddRepairView from "./pages/AddRepairView";
 import MyJobs from "./pages/MyJobs.js";
 import LogIn from "./pages/LogIn.js";
 import SignUp from "./pages/SignUp.js";
+import ManageUsers from "./pages/ManageUsers.js";
+
+// Helpers
 import API from "./helpers/API.js";
 import Local from "./helpers/Local.js";
+
+// Stylesheet
 import './App.css';
 
 export default function App() {
@@ -142,6 +148,14 @@ export default function App() {
                 <MyJobs user={user} />
               </PrivateRoute>
               } />
+
+            <Route path="/manageusers" element={
+            
+            <AdminRoute>
+              <ManageUsers user={user} />
+            </AdminRoute>
+            } />
+
             
           </Routes>
       </div>

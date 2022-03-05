@@ -23,6 +23,23 @@ function ensureUserLoggedIn(req, res, next) {
     }
 }
 
+// Ensure user is admin
+
+function ensureUserIsAdmin(req, res, next) {
+    let token = _getToken(req);
+    try {
+        // Throws error on invalid/missing token
+        let payload = jwt.verify(token, SECRET_KEY);
+        // If we get here, a valid token was passed
+        if (payload.usertype === "admin") {
+            next();
+        } else {
+            res.status(401).send({ error: 'Unauthorized' });
+        }
+    } catch (err) {
+        res.status(401).send({ error: 'Unauthorized' });
+    }
+}
 
 /**
  * Make sure user is logged in and is accessing his/her own page.
@@ -68,5 +85,6 @@ function _getToken(req) {
 
 module.exports = {
     ensureUserLoggedIn,
-    ensureSameUser
+    ensureSameUser,
+    ensureUserIsAdmin
 };

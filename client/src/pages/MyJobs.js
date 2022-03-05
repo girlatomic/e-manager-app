@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Table} from 'react-bootstrap';
 import API from "../helpers/API";
+import {BsCardChecklist} from 'react-icons/bs';
 
 const MyJobs = (props) => {
     const [myRepairs, setMyRepairs] = useState([]);
@@ -11,10 +12,11 @@ const MyJobs = (props) => {
     }, []);
     
     const getRepairs = async () => {
-        let response = await API.getContent('/repairs');
+        let userid = props.user.userid;
+        let response = await API.getContent(`/repairs/user/${userid}`);
+        // Get repairs by userid  
         if (response.ok) {
-            let repairs = response.data;
-            let filtered = repairs.filter(r => r.assignedto === props.user.userid)
+            let filtered = response.data;
             setMyRepairs(filtered);
         }
         else {
@@ -23,10 +25,14 @@ const MyJobs = (props) => {
       };
 
     return (
-     <div>
-      <h1>My Jobs page</h1>
-            
-      <Table>
+     <div className="container">
+      <h2><BsCardChecklist className="me-2" />My Jobs</h2>
+      <h3>Jobs in progress</h3>
+      <p>[No jobs currently in progress]</p>
+
+
+      <h3>Completed jobs</h3>      
+      <Table bordered>
         <thead>
           <tr>
             <th>ID</th>

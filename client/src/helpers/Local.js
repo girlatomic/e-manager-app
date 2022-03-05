@@ -36,15 +36,6 @@ const Local = {
         return userjson ? JSON.parse(userjson) : null;
     },
 
-    getUserId() {
-        let userjson = localStorage.getItem('user');
-        if (!userjson) {
-            return '';
-        }
-        let user = JSON.parse(userjson);
-        return user.userid;
-    },
-
     getUsername() {
         let userjson = localStorage.getItem('user');
         if (!userjson) {
@@ -52,6 +43,15 @@ const Local = {
         }
         let user = JSON.parse(userjson);
         return user.username;
+    },
+
+    getUserType() {
+        let userjson = localStorage.getItem('user');
+        if (!userjson) {
+            return '';
+        }
+        let user = JSON.parse(userjson);
+        return user.usertype;
     }
 }
 
