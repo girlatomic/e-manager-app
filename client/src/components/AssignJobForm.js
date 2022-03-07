@@ -27,16 +27,16 @@ function AssignJobForm(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let updatedJob = props.jobToEdit.current;
+        let updatedJob = props.jobToEdit;
         updatedJob.assignedto = assignedTo;
-        console.log(updatedJob);
+        props.updateJobListCB(updatedJob, updatedJob.repair_id);
     }
 
     return (
     <div>
             <form onSubmit={e => handleSubmit(e)}>
             <h3>Assign Job</h3>
-            
+            Currently assigned to: {props.jobToEdit.assignedto}
             <select
             name="assignedto"
             onChange={e => handleChange(e)}

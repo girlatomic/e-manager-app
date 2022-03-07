@@ -89,30 +89,6 @@ export default function App() {
   //   navigate('/clients');
   // }
 
-  // Repair functions
-
-  // async function addRepair(repair) {
-  //   let options = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(repair)
-  //   };
-
-  //   try {
-  //     let response = await fetch("/repairs", options);
-  //     if (response.ok) {
-  //       let data = await response.json();
-  //       setRepairs(data);
-  //     } else {
-  //       console.log(`Server error: ${response.status} ${response.statusText}`);
-  //     }
-  //   } catch (err) {
-  //     console.log(`Server error: ${err.message}`);
-  //   }
-
-  //   navigate('/repairs');
-  // }
-
   return (
     <div className="App">
       <Navbar user={user} logoutCB={() => handleLogout()} />
@@ -140,7 +116,13 @@ export default function App() {
             } />
             
             
-            {/* <Route path="/add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} /> */}
+            <Route path="/add-repair" element={
+              <PrivateRoute>
+                <AddRepairView />
+
+              </PrivateRoute>
+             } /> 
+                
 
             <Route path="/myjobs" element={
             

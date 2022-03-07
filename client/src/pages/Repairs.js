@@ -10,7 +10,7 @@ function Repairs(props) {
   const [input, setInput] = useState("");
   const [repairs, setRepairs] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
-  const jobToEdit = useRef({});
+  const [jobToEdit, setJobToEdit] = useState({});
   const [showReassign, setShowReassign] = useState(false)
 
   useEffect(() => {
@@ -31,10 +31,27 @@ function Repairs(props) {
     setInput(e.target.value)
   };
 
-  const getJobToEdit = (r.id) => {
-    
 
+  const handleReassign = async (id) => {
+    let response = await API.getContent(`/repairs/${id}`);
+    if (response.ok) {
+      setJobToEdit(response.data[0]);
+    }
+    else {
+      setErrorMsg(response.error)
+    }
     setShowReassign(true);
+  }
+
+  const updateJobList = async (updatedJob, jobid) => {
+    let response = await API.updateContent(`/repairs/${jobid}`, updatedJob);
+    if (response.ok) {
+      setRepairs(response.data)
+    }
+    else {
+      setErrorMsg(response.error);
+    }
+    setShowReassign(false);
   }
 
   return (
@@ -96,22 +113,22 @@ function Repairs(props) {
               }
             })
             .map(r => (
-              <tr key={r.id}>
-                <td>{r.id}</td>
+              <tr key={r.repair_id}>
+                <td>{r.repair_id}</td>
                 <td>{r.model}</td>
                 <td>{r.brand}</td>
                 <td>{r.serial_number}</td>
                 <td>{r.repair_status}</td>
                 <td>{r.username}</td>
                 <td>{r.first_name} {r.last_name}</td>
-                <td><button className="btn btn-primary me-3" onClick={e => handleReassign(r.id)}>Reassign</button><button className="btn btn-primary">Edit</button></td>
+                <td><button className="btn btn-primary me-3" onClick={e => handleReassign(r.repair_id)}>Reassign</button><button className="btn btn-primary">Edit</button></td>
               </tr>
             ))
           }
         </tbody>
       </Table>
 
-    {showReassign && <AssignJobForm jobtoEdit={jobToEdit} /> }
+    {showReassign && jobToEdit && <AssignJobForm jobToEdit={jobToEdit} updateJobListCB={(updatedJob, jobid) => updateJobList(updatedJob, jobid)} /> }
     
     </Container>
   );

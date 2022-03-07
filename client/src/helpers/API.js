@@ -142,10 +142,10 @@ class API {
 
     // General purpose edit
 
-    static async updatedContent(route, updatedObject) {
+    static async updateContent(route, updatedObject) {
         // Prepare options
         let options = { 
-            method: 'POST', 
+            method: 'PUT', 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(updatedObject) 
             };

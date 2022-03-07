@@ -23,7 +23,7 @@ router.get("/:id", async (req, res, next) => {
     let results = await db(`SELECT r.*, c.first_name, c.last_name 
                             FROM repairs AS r 
                             JOIN clients AS c ON r.client_id = c.id 
-                            WHERE id = ${id}`);
+                            WHERE repair_id = ${id}`);
     let repairs = results.data;
     if (repairs.length === 0) {
       res.status(404).send({ error: "Repair not found" });
@@ -78,7 +78,7 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   let id = req.params.id;
   let { model, brand, serial_number, repair_status, client_id, assignedto } = req.body;
-  let sqlCheckID = `SELECT * FROM repairs WHERE id = ${id}`;
+  let sqlCheckID = `SELECT * FROM repairs WHERE repair_id = ${id}`;
   let sqlUpdate = `
     UPDATE repairs SET
     model = '${model}', 
@@ -87,9 +87,9 @@ router.put("/:id", async (req, res, next) => {
     repair_status = '${repair_status}', 
     client_id = ${client_id},
     assignedto = ${assignedto}
-    WHERE id = ${id}
+    WHERE repair_id = ${id}
   `;
-  let sqlGetRepairs = `SELECT r.*, c.first_name, c.last_name 
+  let sqlGetRepairs = `SELECT r.*, c.first_name, c.last_name, u.username 
                       FROM repairs AS r 
                       JOIN clients AS c ON r.client_id = c.id
                       JOIN users as u ON r.assignedto = u.userid;`
