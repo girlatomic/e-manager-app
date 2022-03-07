@@ -4,7 +4,6 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 import {AiFillTool} from 'react-icons/ai';
 import API from "../helpers/API";
-import AssignJobForm from '../components/AssignJobForm';
 
 function Repairs(props) {
   const [input, setInput] = useState("");
@@ -31,18 +30,6 @@ function Repairs(props) {
     setInput(e.target.value)
   };
 
-
-  const handleReassign = async (id) => {
-    let response = await API.getContent(`/repairs/${id}`);
-    if (response.ok) {
-      setJobToEdit(response.data[0]);
-    }
-    else {
-      setErrorMsg(response.error)
-    }
-    setShowReassign(true);
-  }
-
   const updateJobList = async (updatedJob, jobid) => {
     let response = await API.updateContent(`/repairs/${jobid}`, updatedJob);
     if (response.ok) {
@@ -59,7 +46,7 @@ function Repairs(props) {
       <h2><AiFillTool/>Repairs</h2>
       <Row>
         <Col className="text-start mt-5 mb-5">
-          <Link to="/add-repair" className="btn btn-primary" role="button">+ Add Repair</Link>
+          <Link to="/repairs/add" className="btn btn-primary" role="button">+ Add Repair</Link>
         </Col>
         <Col>
        <div className="input-group mt-5 mb-5">
@@ -121,14 +108,14 @@ function Repairs(props) {
                 <td>{r.repair_status}</td>
                 <td>{r.username}</td>
                 <td>{r.first_name} {r.last_name}</td>
-                <td><button className="btn btn-primary me-3" onClick={e => handleReassign(r.repair_id)}>Reassign</button><button className="btn btn-primary">Edit</button></td>
+                <td><Link to={'/repairs/edit/'+r.repair_id} className="btn btn-primary btn-sm me-2">Edit</Link>
+                    <button className="btn btn-danger btn-sm">Delete</button>
+                </td>
               </tr>
             ))
           }
         </tbody>
       </Table>
-
-    {showReassign && jobToEdit && <AssignJobForm jobToEdit={jobToEdit} updateJobListCB={(updatedJob, jobid) => updateJobList(updatedJob, jobid)} /> }
     
     </Container>
   );

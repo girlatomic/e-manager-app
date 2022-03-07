@@ -24,12 +24,12 @@ const LogIn = (props) => {
     }
   
     return (
-     <div>
-      <form className="row m-4 rounded" onSubmit={handleSubmit}>
-          <div className="mb-5 col-md-7 offset-md-2">
+     <div className="container d-flex justify-content-center">
+      <form className="user-form" onSubmit={handleSubmit}>
+          <div className="mb-3 mt-3">
             <h2>Log In</h2>
           </div>
-          <div className="mb-4 col-md-7 offset-md-2">
+          <div className="mb-3">
             <label htmlFor="username" className="form-label">Username</label>
               <input
               type="text"
@@ -39,10 +39,10 @@ const LogIn = (props) => {
               onChange={handleChange}
               />
             </div>
-            <div className="mb-4 col-md-7 offset-md-2">
+            <div className="mb-3">
               <label htmlFor="password" className="form-label">Password</label>
               <input
-              type="text"
+              type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
@@ -50,7 +50,7 @@ const LogIn = (props) => {
               />
             </div>
         
-            <div className="col-md-6 offset-md-5">
+            <div>
               <button type="submit" className="btn btn-primary">Log In</button>
             </div>
         </form>

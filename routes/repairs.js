@@ -57,14 +57,14 @@ router.get("/user/:userid", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-    let { model, brand, serial_number, repair_status, client_id, assignedto } = req.body;
+    let { model, brand, serial_number, repair_status, client_id, assignedto, notes } = req.body;
     let sql = "";
     if (repair_status === "Not yet assigned") {
-      sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id)
-      VALUES ('${model}','${brand}', '${serial_number}', ${repair_status}, ${client_id})`;
+      sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, notes)
+      VALUES ('${model}','${brand}', '${serial_number}', '${repair_status}', ${client_id}, '${notes}')`;
     } else {
-      sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, assignedto)
-      VALUES ('${model}','${brand}', '${serial_number}', ${repair_status}, ${client_id}, ${assignedto})`;
+      sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, assignedto, notes)
+      VALUES ('${model}','${brand}', '${serial_number}', '${repair_status}', ${client_id}, ${assignedto}, '${notes}')`;
     }
     try {
       await db(sql);

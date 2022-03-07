@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {Table} from 'react-bootstrap';
 import API from "../helpers/API";
 import {RiUserSettingsFill} from 'react-icons/ri';
-import { useIsRTL } from 'react-bootstrap/esm/ThemeProvider';
 
 const MyJobs = (props) => {
     const [users, setUsers] = useState([]);

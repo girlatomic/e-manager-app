@@ -21,16 +21,17 @@ CREATE TABLE repairs (
     brand VARCHAR(250) NOT NULL,
     serial_number VARCHAR(250) NOT NULL,
     repair_status VARCHAR(250) NOT NULL,
+    notes VARCHAR(250),
     client_id INT NOT NULL,
     assignedto INT,
     FOREIGN KEY (client_id) REFERENCES clients(id),
     FOREIGN KEY (assignedto) REFERENCES users(userid)
 );
 
-INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, assignedto)
+INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, assignedto, notes)
 VALUES
-    ('iPhone X', 'Apple', '0237BAD7JL8', 'Delivered', 1, 1),
-    ('Galaxy S22', 'Samsung', '078583920HA', 'In progress', 2, 2);
+    ('iPhone X', 'Apple', '0237BAD7JL8', 'Delivered', 1, 1, 'Screen is broken'),
+    ('Galaxy S22', 'Samsung', '078583920HA', 'In progress', 2, 2, 'Cannot send texts');
 
 
 SET foreign_key_checks = 0;

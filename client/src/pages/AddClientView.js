@@ -1,72 +1,43 @@
 import React, { useState } from 'react';
-import { Form, Container } from 'react-bootstrap';
+import ClientForm from '../components/ClientForm';
+import {IoMdPersonAdd} from 'react-icons/io';
+import SubmitModal from '../components/Modal';
+import API from '../helpers/API';
 
-const INIT_STATE = {
-    first_name: '',
-    last_name: '',
-    phone: ''
-};
 
 function AddClientView(props) {
-    const [formData, setFormData] = useState(INIT_STATE);
+  const [modalShow, setModalShow] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const modalInfo = {
+    title: 'Client added!',
+    closetext: 'Add another client',
+    backtext: 'Go back to Clients list',
+    backpath: '/clients'
+  }
+  
+  const handleAddClient = async (newClient) => {
+      let response = await API.addContent('/clients', newClient);
+      if (response.ok) {
+        console.log("Client added!")
+        setModalShow(true);
+      }
+      else {
+        setErrorMsg(response.error)
+      }
+    }  
 
-    function handleSubmit(event) {
-      event.preventDefault();
-      props.addClientCb(formData);
-      setFormData(INIT_STATE);
-    }
-  
-    function handleChange(event) {
-      let { name, value } = event.target;
-      setFormData(data => ({
-        ...data,
-        [name]: value
-      }));
-    }
-  
+
     return (
-     <Container className="addClientView">
-        
-        <Form className="row m-4 rounded" onSubmit={handleSubmit}>
-          <div className="mb-5 col-md-7 offset-md-2">
-            <h2>New Client Form</h2>
-          </div>
-          <div className="mb-4 col-md-7 offset-md-2">
-            <label htmlFor="inputName" className="form-label">First Name</label>
-              <input
-              type="text"
-              name="first_name"
-              value={formData.first_name}
-              className="form-control"
-              onChange={handleChange}
-              />
-            </div>
-            <div className="mb-4 col-md-7 offset-md-2">
-              <label htmlFor="inputLastName" className="form-label">Last Name</label>
-              <input
-              type="text"
-              name="last_name"
-              value={formData.last_name}
-              onChange={handleChange}
-              className="form-control"
-              />
-            </div>
-            <div className="mb-4 col-md-7 offset-md-2">
-              <label htmlFor="inputPhone" className="form-label">Phone Number</label>
-              <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="form-control"
-              />
-            </div>
-
-            <div className="col-md-6 offset-md-5">
-              <button type="submit" className="btn btn-primary">Add</button>
-            </div>
-        </Form>
-      </Container>
+    <div className="container">
+            <h2><IoMdPersonAdd className="me-1"/>Add New Client</h2>
+            <ClientForm addClientCb={(newClient) => handleAddClient(newClient)} /> 
+            
+            <SubmitModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                modalInfo={modalInfo}
+            />
+    </div>
     );
 }
 

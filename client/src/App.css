@@ -33,20 +33,6 @@ h2 {
   color: white;
 }
 
-.addClientView {
-  display: flex;
-  height: 90vh;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.addRepairView {
-  display: flex;
-  height: 90vh;
-  align-items: flex-start;
-  justify-content: center;
-}
-
 table {
   margin-top: 20px;
   border-collapse: collapse;
@@ -82,4 +68,8 @@ td {
   margin: 0;
   overflow: visible;
   padding: 0.3em 1em;
+}
+
+.user-form {
+  width: 50vw;
 }

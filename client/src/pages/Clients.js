@@ -37,12 +37,22 @@ function Clients(props) {
     setSearchTerm(e.target.value)
   };
 
+  const handleDelete = async (id) => {
+    let response = await API.deleteContent(`/clients/${id}`);
+      if (response.ok) {
+        setClients(response.data)
+      }
+      else {
+        setErrorMsg(response.error)
+      }
+  }
+
   return (
     <Container>
       <h2><IoMdPeople />Clients</h2>
      <Row>
        <Col className="text-start mt-5 mb-5">
-         <Link to="/add-client" className="btn btn-primary" role="button"> + Add new client</Link>
+         <Link to="/clients/add" className="btn btn-primary" role="button"> + Add new client</Link>
        </Col>
        <Col>
        <div className="input-group mt-5 mb-5">
@@ -92,8 +102,8 @@ function Clients(props) {
                   <td>{c.last_name}</td>
                   <td>{c.phone}</td>
                   <td>
-                    <Link to={`/edit-client/${c.id}`} type="button" className="btn btn-primary btn-sm">Edit</Link>
-                    <button className="btn btn-danger btn-sm">Delete</button>
+                    <Link to={`/clients/edit/${c.id}`} type="button" className="btn btn-primary btn-sm me-2">Edit</Link>
+                    <button className="btn btn-danger btn-sm" onClick={e => handleDelete(c.id)} >Delete</button>
                   </td>
                 </tr>
               ))

@@ -68,4 +68,33 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.delete('/:userid', ensureUserLoggedIn, async function(req, res, next) {
+  let id = req.params.userid
+  let sqlCheckID = `SELECT * FROM clients WHERE id = ${id}`;
+  let sqlCheckJobs = `SELECT * FROM repairs WHERE client_id = ${id}`
+  let sqlDelete = `DELETE FROM clients WHERE id = ${id}`;
+  let sqlGetClients = 'SELECT * FROM clients ORDER BY id';
+  try {
+      let result = await db(sqlCheckID);
+      if (result.data.length === 0) {
+          res.status(404).send({ error: "Client not found!" });
+        }    
+      else {
+          let jobResult = await db(sqlCheckJobs);
+          if (jobResult.data.length != 0) {
+              res.status(401).send({error: "Client has pending jobs!"})
+          }
+          else {
+              await db(sqlDelete);
+              let result = await db(sqlGetClients);
+              let clients = result.data;
+              res.status(201).send(clients);
+          }  
+        }
+      } 
+  catch (err) {
+          next(err);
+      }
+  });
+
 module.exports = router;

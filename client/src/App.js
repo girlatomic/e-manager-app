@@ -9,6 +9,7 @@ import Clients from "./pages/Clients";
 import Repairs from "./pages/Repairs";
 import AddClientView from "./pages/AddClientView";
 import AddRepairView from "./pages/AddRepairView";
+import EditRepairView from "./pages/EditRepairView";
 import MyJobs from "./pages/MyJobs.js";
 import LogIn from "./pages/LogIn.js";
 import SignUp from "./pages/SignUp.js";
@@ -107,7 +108,11 @@ export default function App() {
                 </PrivateRoute> 
               } />    
                 
-            {/* <Route path="/add-client" element={<AddClientView addClientCb={client => addClient(client)} />} /> */}
+            <Route path="/clients/add" element={
+              <PrivateRoute>
+                <AddClientView />
+              </PrivateRoute>    
+              } />
 
             <Route path="/repairs" element={
               <PrivateRoute>
@@ -116,12 +121,19 @@ export default function App() {
             } />
             
             
-            <Route path="/add-repair" element={
+            <Route path="/repairs/add" element={
               <PrivateRoute>
-                <AddRepairView />
+                <AddRepairView user={user} />
 
               </PrivateRoute>
              } /> 
+
+            <Route path="/repairs/edit/:repair_id" element={
+              <PrivateRoute>
+                <EditRepairView user={user} />
+
+              </PrivateRoute>
+             } />  
                 
 
             <Route path="/myjobs" element={

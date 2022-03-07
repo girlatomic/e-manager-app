@@ -25,18 +25,13 @@ function SignUp(props) {
     }
   
     return (
-     <Container>
+     <div className="container d-flex justify-content-center">
         
-        <Form className="row m-4 rounded" onSubmit={handleSubmit}>
-          <div className="mb-5 col-md-7 offset-md-2">
-            {props.submitSuccess && (
-              <div>Sign up successful! Click here to log in.</div>
-            )}
-            
-            <h2>Add New User</h2>
+        <Form className="mt-3 user-form" onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <h2>Create Account</h2>
           </div>
-          <div className="mb-4 col-md-7 offset-md-2">
-            <div className="mb-4 col-md-7 offset-md-2">
+            <div className="mb-3">
               <label htmlFor="email" className="form-label">Email address</label>
               <input
               type="text"
@@ -46,6 +41,7 @@ function SignUp(props) {
               className="form-control"
               />
             </div>
+            <div className="mb-3">
             <label htmlFor="username" className="form-label">Username</label>
               <input
               type="text"
@@ -55,22 +51,21 @@ function SignUp(props) {
               onChange={handleChange}
               />
             </div>
-            <div className="mb-4 col-md-7 offset-md-2">
+            <div className="mb-3">
               <label htmlFor="password" className="form-label">Password</label>
               <input
-              type="text"
+              type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               className="form-control"
               />
             </div>
-        
-            <div className="col-md-6 offset-md-5">
-              <button type="submit" className="btn btn-primary">Add</button>
+            <div>
+              <button type="submit" className="btn btn-primary">Sign Up</button>
             </div>
         </Form>
-      </Container>
+      </div>
     );
 }
 
