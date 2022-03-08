@@ -69,7 +69,6 @@ router.patch('/update/:userid', ensureUserIsAdmin, async (req, res, next) => {
     }
 });
 
-
 // CURRENTLY NOT NEEDED: GET ONE USER BY ID
 
 // router.get('/:userid', ensureSameUser, async function(req, res, next) {

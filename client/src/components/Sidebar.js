@@ -22,7 +22,8 @@ function Sidebar(props) {
                     
                     {props.user && (
                     <div>
-                    <div className="d-flex align-items-center justify-content-center"><NavLink className={({ isActive }) => (isActive ? 'active sb-link text-light ps-3' : 'sb-link text-light ps-3')} to="/myjobs" ><BsCardChecklist className="me-2"/>My Jobs</NavLink></div> 
+                    <div className="d-flex align-items-center justify-content-center"><NavLink className={({ isActive }) => (isActive ? 'active sb-link text-light ps-3' : 'sb-link text-light ps-3')} to="/myjobs" ><BsCardChecklist className="me-2"/>My Jobs</NavLink></div>
+                    <div className="d-flex align-items-center justify-content-center"><NavLink className={({ isActive }) => (isActive ? 'active sb-link text-light ps-3' : 'sb-link text-light ps-3')} to="/mysettings" ><BsCardChecklist className="me-2"/>My Settings</NavLink></div>  
                     <div className="d-flex align-items-center justify-content-center"><NavLink className={({ isActive }) => (isActive ? 'active sb-link text-light ps-3' : 'sb-link text-light ps-3')} to="/repairs" ><AiFillTool className="me-2"/>All Repairs</NavLink></div> 
                     <div className="d-flex align-items-center justify-content-center"><NavLink className={({ isActive }) => (isActive ? 'active sb-link text-light ps-3' : 'sb-link text-light ps-3')} to="/clients" ><IoMdPeople className="me-2"/>Clients</NavLink></div>
                     </div> 

@@ -95,7 +95,7 @@ function RepairForm(props) {
           className="form-control" 
           id="inputBrand4"/>
         </div>
-        <div className="mb-4 col-md-4">
+        <div className="mb-4 col-md-3">
           <label htmlFor="inputSerial" className="form-label">Serial Number</label>
           <input 
           type="text"
@@ -106,7 +106,7 @@ function RepairForm(props) {
           id="inputSerialN" 
           placeholder="IMEI"/>
         </div>
-        <div className="mb-4 col-md-4">
+        <div className="mb-4 col-md-3">
           <label htmlFor="inputState" className="form-label">Status</label>
           <select id="inputState" className="form-select" name="repair_status" value={repairFormData.repair_status}
            onChange={handleChange} required>
@@ -118,7 +118,7 @@ function RepairForm(props) {
           </select>
         </div>
 
-        <div className="col-md">
+        <div className="col-md-3">
           <label htmlFor="inputclient" className="form-label">Client</label>
           <select className="form-select" name="client_id" value={repairFormData.client_id}
            onChange={handleChange} required>
@@ -128,12 +128,45 @@ function RepairForm(props) {
             ))}
           </select>
           {props.formType === "Add" && (
-            <button className="btn btn-primary">Add new client</button>
+            <button className="btn btn-primary mt-2">Add new client</button>
           )}       
         </div>
 
-       {props.user.usertype === "admin" ? (
-          <div className="col-md">
+       {props.formType === "Add" && props.user.usertype === "admin" 
+       ? (
+         <div className="col-md-3">
+         <label htmlFor="inputuser" className="form-label">Assigned to</label>
+         <select className="form-select" name="assignedto" value={repairFormData.assignedto}
+          onChange={handleChange} required>
+           <option value="">Choose...</option>
+           {users.map(u => (
+             <option value={u.userid}>{u.username}</option>
+           ))}
+         </select>
+         </div>
+       )
+       : props.formType === "Add" && props.user.usertype === "user"
+       ? (
+          <div className="col-md-3">
+         <label htmlFor="inputuser" className="form-label">Assigned to</label>
+         <div className="d-flex">
+         <select className="form-select" name="assignedto" value={repairFormData.assignedto}
+          onChange={handleChange} required>
+           <option value={props.user.userid}>{props.user.username}</option>
+         </select>
+         <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip}
+              >
+              <button className="btn btn-secondary ms-3">?</button>
+          </OverlayTrigger>
+          </div>
+         </div>
+       )
+       : props.user.usertype === "admin" 
+       ? (
+          <div className="col-md-3">
           <label htmlFor="inputuser" className="form-label">Assigned to</label>
           <select className="form-select" name="assignedto" value={repairFormData.assignedto}
            onChange={handleChange} required>
@@ -143,7 +176,8 @@ function RepairForm(props) {
             ))}
           </select>
           </div>
-       ) : <div className="col-md">
+       ) 
+       : <div className="col-md">
               <div>Assigned to: </div>
               <div>{props.job.assignedto} 
               <OverlayTrigger
@@ -151,7 +185,7 @@ function RepairForm(props) {
                 delay={{ show: 250, hide: 400 }}
                 overlay={renderTooltip}
               >
-              <button className="btn btn-secondary">?</button>
+              <button className="btn btn-secondary ms-3">?</button>
               </OverlayTrigger>
   
               </div></div>} 
@@ -164,7 +198,7 @@ function RepairForm(props) {
         </div>
 
         <div className="col-md-6 offset-md-5">
-          <button type="submit" className="btn btn-primary">Add</button>
+          <button type="submit" className="btn btn-primary">Submit</button>
         </div>
       </form>
 

@@ -84,6 +84,35 @@ class API {
         return response;
     }
 
+    // Update user info
+
+    static async updateUserInfo (updatedUser, route) {
+        // Prepare options
+        let options = { 
+            method: 'PATCH', 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(updatedUser) 
+            };
+        // Add JWT token (if it exists) in case content is protected
+        let token = Local.getToken();
+        if (token) {
+            options.headers['Authorization'] = 'Bearer ' + token;
+        }
+        let response;
+        try {
+            response = await fetch(route, options);
+            if (response.ok) {
+                response.data = await response.json();
+            } else {
+                response.error = `Error ${response.status}: ${response.statusText}`;
+            }
+        } catch (err) {
+            response = { ok: false, error: err.message };
+        }
+
+        return response;
+    }
+
     // General purpose get
 
     static async getContent(route) {

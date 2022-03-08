@@ -12,6 +12,7 @@ const LogIn = (props) => {
     function handleSubmit(event) {
       event.preventDefault();
       props.logInCb(formData.username, formData.password);
+      if (props.loginError) {console.log(props.loginError)}
       setFormData(INIT_STATE);
     }
   
@@ -54,6 +55,12 @@ const LogIn = (props) => {
               <button type="submit" className="btn btn-primary">Log In</button>
             </div>
         </form>
+        
+        {/* <SubmitModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                modalInfo={modalInfo}
+            /> */}
      </div>
 
   )

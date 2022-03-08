@@ -26,6 +26,7 @@ const MyJobs = (props) => {
         let response = await API.deleteContent(`/users/${userid}`);
         if (response.ok) {
             let users = response.data;
+            setErrorMsg("");
             setUsers(users);
         }
         else {
@@ -77,7 +78,7 @@ const MyJobs = (props) => {
         </tbody>
       </Table>
 
-      {errorMsg === "Error 401: Unauthorized" ? <p>Sorry! You can't delete that user because they currently have jobs assigned to them. Please reassign their jobs and try again.</p> : <p>{errorMsg}</p>}
+      {errorMsg && errorMsg === "Error 401: Unauthorized" ? <p>Sorry! You can't delete that user because they currently have jobs assigned to them. Please reassign their jobs and try again.</p> : <p>{errorMsg}</p>}
      </div>
 
   )

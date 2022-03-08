@@ -11,6 +11,7 @@ import AddClientView from "./pages/AddClientView";
 import AddRepairView from "./pages/AddRepairView";
 import EditRepairView from "./pages/EditRepairView";
 import MyJobs from "./pages/MyJobs.js";
+import MySettings from "./pages/MySettings.js";
 import LogIn from "./pages/LogIn.js";
 import SignUp from "./pages/SignUp.js";
 import ManageUsers from "./pages/ManageUsers.js";
@@ -24,9 +25,7 @@ import './App.css';
 
 export default function App() {
   let [user, setUser] = useState(Local.getUser());
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  let [loginErrorMsg, setLoginErrorMsg] = useState("");
-  let [repairs, setRepairs] = useState([]);
+  let [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
 
 
@@ -38,11 +37,11 @@ export default function App() {
     if (response.ok) {
         Local.saveUserInfo(response.data.token, response.data.user);
         setUser(response.data.user);
-        setLoginErrorMsg('');
+        setLoginError('');
         navigate('/myjobs');
     } else {
-        setLoginErrorMsg('Login failed');
-        console.log(loginErrorMsg);
+        setLoginError(response.error);
+        console.log(loginError);
     }
   }
 
@@ -56,39 +55,28 @@ export default function App() {
   const handleSignUp = async (newUser) => {
     let response = await API.createUser(newUser.username, newUser.password, newUser.email);
     if (response.ok) {
-      setSubmitSuccess(true);
-      setLoginErrorMsg('');
-      console.log("It worked!")
+      setLoginError('');
+      console.log("Sign up successful!")
   } else {
-      setLoginErrorMsg('Sign up failed');
-      console.log(loginErrorMsg);
+      setLoginError(response.error);
+      console.log(loginError);
   }
   }
 
-  // Client functions
+  // Change user info
 
-  // async function addClient(client) {
-
-  //   let options = {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(client)
-  //   };
-
-  //   try {
-  //     let response = await fetch("/clients", options);
-  //     if (response.ok) {
-  //       let data = await response.json();
-  //       setClients(data);
-  //     } else {
-  //       console.log(`Server error: ${response.status} ${response.statusText}`);
-  //     }
-  //   } catch (err) {
-  //     console.log(`Server error: ${err.message}`);
-  //   }
-
-  //   navigate('/clients');
-  // }
+  async function updateUserInfo(userObj, route) {
+    let response = await API.updateUserInfo(userObj, route);
+    console.log(response)
+    if (response.ok) {
+        Local.saveUserInfo(response.data.token, response.data.user);
+        setUser(response.data.user);
+        setLoginError('');
+    } else {
+        setLoginError('Login failed');
+        console.log(loginError);
+    }
+  }
 
   return (
     <div className="App">
@@ -99,8 +87,12 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home/>} />
 
-            <Route path="/login" element={<LogIn logInCb={(username, password) => handleLogin(username, password)}/>} />
-            <Route path="/signup" element={<SignUp addUserCb={(newUser) => handleSignUp(newUser)} submitSuccess={submitSuccess}/>} />
+            <Route path="/login" 
+            element={<LogIn 
+                          logInCb={(username, password) => handleLogin(username, password)}/>}
+                          loginError={loginError}
+                          />
+            <Route path="/signup" element={<SignUp addUserCb={(newUser) => handleSignUp(newUser)} />} />
             
             <Route path="/clients" element={
                 <PrivateRoute>
@@ -111,6 +103,12 @@ export default function App() {
             <Route path="/clients/add" element={
               <PrivateRoute>
                 <AddClientView />
+              </PrivateRoute>    
+              } />
+
+            <Route path="/mysettings" element={
+              <PrivateRoute>
+                <MySettings user={user} updateUserCB={(userObj, route) => updateUserInfo(userObj, route)} />
               </PrivateRoute>    
               } />
 

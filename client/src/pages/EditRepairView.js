@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import RepairForm from '../components/RepairForm';
 import {AiOutlineForm} from 'react-icons/ai';
 import API from '../helpers/API';
+import SubmitModal from '../components/Modal';
 
 const EditRepairView = (props) => {
   const [errorMsg, setErrorMsg] = useState("");
@@ -18,6 +19,13 @@ const EditRepairView = (props) => {
         notes: ''
       }
   );
+  const [modalShow, setModalShow] = useState(false);
+  const modalInfo = {
+    title: 'Repair edited!',
+    closetext: 'Do more edits',
+    backtext: 'Go back to Repairs list',
+    backpath: '/repairs'
+  }
   
 
   useEffect(() => {
@@ -41,6 +49,7 @@ const EditRepairView = (props) => {
       let response = await API.updateContent(`/repairs/${repair_id}`, updatedRepairObj);
       if (response.ok) {
         console.log("Repair edited!")
+        setModalShow(true);
       }
       else {
         setErrorMsg(response.error)
@@ -53,6 +62,12 @@ const EditRepairView = (props) => {
           <h2><AiOutlineForm/>Edit Repair Order</h2>
         </div>
       <RepairForm job={job} editRepairCB={(updatedRepairObj) => handleEditRepair(updatedRepairObj)} user={props.user} formType="Edit" />
+
+      <SubmitModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                modalInfo={modalInfo}
+      />
      </div>
 
   )

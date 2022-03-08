@@ -6,12 +6,11 @@ import {BsCardChecklist} from 'react-icons/bs';
 const MyJobs = (props) => {
     const [myRepairs, setMyRepairs] = useState([]);
     const [errorMsg, setErrorMsg] = useState("");
-    const [statusList, setStatusList] = useState([]);
+    const [filter, setFilter] = useState("Show all");
     
 
     useEffect(() => {
         getRepairs();
-        getStatus();
     }, []);
     
     const getRepairs = async () => {
@@ -21,42 +20,31 @@ const MyJobs = (props) => {
         if (response.ok) {
             let filtered = response.data;
             setMyRepairs(filtered);
-            
         }
         else {
           setErrorMsg(response.error)
         }
       };
-
-    const getStatus = async () => {
-      let userid = props.user.userid;
-      let response = await API.getContent(`/repairs/user/${userid}`);
-      if (response.ok) {
-            let filtered = response.data;
-            let myStatus = [...new Set(filtered.map(r => r.repair_status))];
-            setStatusList(myStatus);
-        }
-        else {
-          setErrorMsg(response.error)
-        }
+    
+    const handleFilter = (e) => {
+      setFilter(e.target.value);
     }
+
 
     return (
      <div className="container">
       <h2><BsCardChecklist className="me-2" />My Jobs</h2>
       
-      <div>
-        Filter by status:
-        <select>
-          <option>Show all</option>
-          {statusList.map(s => {(
-            <option>{s}</option>
-          )})
-
-          }
+      <div className="mt-3">
+        <label className="me-2">Filter by status:</label>
+        <select onChange={e => handleFilter(e)}>
+          <option value="Show all">Show all</option>
+          <option value="Not started">Not started</option>
+          <option value="In progress">In progress</option>
+          <option value="Can't be repaired">Can't be repaired</option>
+          <option value="Repaired">Repaired</option>
         </select>
       </div>
-
 
       <Table bordered>
         <thead>
@@ -72,6 +60,10 @@ const MyJobs = (props) => {
         <tbody>
           {
             myRepairs
+            .filter(r => {
+              if (filter === "Show all") {return r}
+              else if (r.repair_status === filter) {return r}
+            })
             .map(r => (
               <tr key={r.repair_id}>
                 <td>{r.repair_id}</td>
