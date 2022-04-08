@@ -108,7 +108,7 @@ function Repairs(props) {
                 <td>{r.repair_status}</td>
                 <td>{r.username}</td>
                 <td>{r.first_name} {r.last_name}</td>
-                <td><Link to={'/repairs/edit/'+r.repair_id} className="btn btn-primary btn-sm me-2">Edit</Link>
+                <td><Link to={'/repairs/edit/'+r.repair_id} className="btn btn-success btn-sm me-2">Edit</Link>
                     <button className="btn btn-danger btn-sm">Delete</button>
                 </td>
               </tr>

@@ -1,43 +1,43 @@
-import React, {useState, useEffect} from 'react';
-import {Table} from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Table } from "react-bootstrap";
 import API from "../helpers/API";
-import {BsCardChecklist} from 'react-icons/bs';
+import { BsCardChecklist } from "react-icons/bs";
 
 const MyJobs = (props) => {
-    const [myRepairs, setMyRepairs] = useState([]);
-    const [errorMsg, setErrorMsg] = useState("");
-    const [filter, setFilter] = useState("Show all");
-    
+  const [myRepairs, setMyRepairs] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [filter, setFilter] = useState("Show all");
 
-    useEffect(() => {
-        getRepairs();
-    }, []);
-    
-    const getRepairs = async () => {
-        let userid = props.user.userid;
-        let response = await API.getContent(`/repairs/user/${userid}`);
-        // Get repairs by userid  
-        if (response.ok) {
-            let filtered = response.data;
-            setMyRepairs(filtered);
-        }
-        else {
-          setErrorMsg(response.error)
-        }
-      };
-    
-    const handleFilter = (e) => {
-      setFilter(e.target.value);
+  useEffect(() => {
+    getRepairs();
+  }, []);
+
+  const getRepairs = async () => {
+    let userid = props.user.userid;
+    let response = await API.getContent(`/repairs/user/${userid}`);
+    // Get repairs by userid
+    if (response.ok) {
+      let filtered = response.data;
+      setMyRepairs(filtered);
+    } else {
+      setErrorMsg(response.error);
     }
+  };
 
+  const handleFilter = (e) => {
+    setFilter(e.target.value);
+  };
 
-    return (
-     <div className="container">
-      <h2><BsCardChecklist className="me-2" />My Jobs</h2>
-      
-      <div className="mt-3">
+  return (
+    <div className="container">
+      <h2>
+        <BsCardChecklist className="me-2" />
+        My Jobs
+      </h2>
+
+      <div className="mt-5 mb-4">
         <label className="me-2">Filter by status:</label>
-        <select onChange={e => handleFilter(e)}>
+        <select onChange={(e) => handleFilter(e)}>
           <option value="Show all">Show all</option>
           <option value="Not started">Not started</option>
           <option value="In progress">In progress</option>
@@ -58,28 +58,30 @@ const MyJobs = (props) => {
           </tr>
         </thead>
         <tbody>
-          {
-            myRepairs
-            .filter(r => {
-              if (filter === "Show all") {return r}
-              else if (r.repair_status === filter) {return r}
+          {myRepairs
+            .filter((r) => {
+              if (filter === "Show all") {
+                return r;
+              } else if (r.repair_status === filter) {
+                return r;
+              }
             })
-            .map(r => (
+            .map((r) => (
               <tr key={r.repair_id}>
                 <td>{r.repair_id}</td>
                 <td>{r.model}</td>
                 <td>{r.brand}</td>
                 <td>{r.serial_number}</td>
                 <td>{r.repair_status}</td>
-                <td>{r.first_name} {r.last_name}</td>
+                <td>
+                  {r.first_name} {r.last_name}
+                </td>
               </tr>
-            ))
-          }
+            ))}
         </tbody>
       </Table>
-     </div>
+    </div>
+  );
+};
 
-  )
-}
-
-export default MyJobs
+export default MyJobs;

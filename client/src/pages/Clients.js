@@ -102,7 +102,7 @@ function Clients(props) {
                   <td>{c.last_name}</td>
                   <td>{c.phone}</td>
                   <td>
-                    <Link to={`/clients/edit/${c.id}`} type="button" className="btn btn-primary btn-sm me-2">Edit</Link>
+                    <Link to={`/clients/edit/${c.id}`} type="button" className="btn btn-success btn-sm me-2">Edit</Link>
                     <button className="btn btn-danger btn-sm" onClick={e => handleDelete(c.id)} >Delete</button>
                   </td>
                 </tr>
