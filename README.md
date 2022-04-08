@@ -7,9 +7,9 @@ Created using React, Node/Express, and MySQL.
 
 ![home](/public/images/EM_Home.png)
 
-[repairs](/public/images/EM_repairs.png)
+![repairs](/public/images/EM_repairs.png)
 
-[repairsorder](/public/images/EM_repairorder.png)
+![repairsorder](/public/images/EM_repairorder.png)
 
 ## Setup
 
