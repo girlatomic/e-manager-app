@@ -1,31 +1,62 @@
-import React, {useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
-import * as AiIcons from 'react-icons/ai';
+import {AiFillTool} from 'react-icons/ai';
+import API from "../helpers/API";
 
 function Repairs(props) {
-  const inputEl = useRef("");
-  const getRepairSearchTerm = () => {
-    props.searchRepKeyword(inputEl.current.value);
+  const [input, setInput] = useState("");
+  const [repairs, setRepairs] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [jobToEdit, setJobToEdit] = useState({});
+  const [showReassign, setShowReassign] = useState(false)
+
+  useEffect(() => {
+    getRepairs();
+  }, []);
+
+  const getRepairs = async () => {
+    let response = await API.getContent('/repairs');
+    if (response.ok) {
+      setRepairs(response.data)
+    }
+    else {
+      setErrorMsg(response.error)
+    }
   };
+
+  const handleSearch = (e) => {
+    setInput(e.target.value)
+  };
+
+  const updateJobList = async (updatedJob, jobid) => {
+    let response = await API.updateContent(`/repairs/${jobid}`, updatedJob);
+    if (response.ok) {
+      setRepairs(response.data)
+    }
+    else {
+      setErrorMsg(response.error);
+    }
+    setShowReassign(false);
+  }
 
   return (
     <Container>
-      <h2><AiIcons.AiFillTool />Repairs</h2>
+      <h2><AiFillTool/>Repairs</h2>
       <Row>
         <Col className="text-start mt-5 mb-5">
-          <Link to="/add-repair" className="btn btn-primary" role="button">+ Add Repair</Link>
+          <Link to="/repairs/add" className="btn btn-primary" role="button">+ Add Repair</Link>
         </Col>
         <Col>
        <div className="input-group mt-5 mb-5">
                 <input
                 className="form-control me-2"
-                ref={inputEl}
+                name="input"
                 placeholder="Search..."
                 type="text"
-                value={props.term}
-                onChange={getRepairSearchTerm}
+                value={input}
+                onChange={(e) => handleSearch(e)}
                 aria-label="Search"
                 />
             </div>
@@ -35,29 +66,57 @@ function Repairs(props) {
       <Table bordered>
         <thead>
           <tr>
-            <th>id</th>
-            <th>model</th>
-            <th>brand</th>
-            <th>serial number</th>
-            <th>status</th>
-            <th>client name</th>
+            <th>ID</th>
+            <th>Model</th>
+            <th>Brand</th>
+            <th>Serial number</th>
+            <th>Status</th>
+            <th>Assigned to</th>
+            <th>Client name</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {
-            props.repairs.map(r => (
-              <tr key={r.id}>
-                <td>{r.id}</td>
+            repairs
+            .filter(r => {
+              if (input === "") {
+                return r
+              } 
+              else if (r.model.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.brand.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.serial_number.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.first_name.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+              else if (r.last_name.toLowerCase().includes(input.toLowerCase())) {
+                return r
+              }
+            })
+            .map(r => (
+              <tr key={r.repair_id}>
+                <td>{r.repair_id}</td>
                 <td>{r.model}</td>
                 <td>{r.brand}</td>
                 <td>{r.serial_number}</td>
                 <td>{r.repair_status}</td>
+                <td>{r.username}</td>
                 <td>{r.first_name} {r.last_name}</td>
+                <td><Link to={'/repairs/edit/'+r.repair_id} className="btn btn-primary btn-sm me-2">Edit</Link>
+                    <button className="btn btn-danger btn-sm">Delete</button>
+                </td>
               </tr>
             ))
           }
         </tbody>
       </Table>
+    
     </Container>
   );
 }

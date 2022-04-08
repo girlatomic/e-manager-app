@@ -3,153 +3,152 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
 import Clients from "./pages/Clients";
 import Repairs from "./pages/Repairs";
 import AddClientView from "./pages/AddClientView";
 import AddRepairView from "./pages/AddRepairView";
+import EditRepairView from "./pages/EditRepairView";
+import MyJobs from "./pages/MyJobs.js";
+import MySettings from "./pages/MySettings.js";
+import LogIn from "./pages/LogIn.js";
+import SignUp from "./pages/SignUp.js";
+import ManageUsers from "./pages/ManageUsers.js";
+
+// Helpers
+import API from "./helpers/API.js";
+import Local from "./helpers/Local.js";
+
+// Stylesheet
 import './App.css';
 
 export default function App() {
-  let [clients, setClients] = useState([]);
-  let [repairs, setRepairs] = useState([]);
-
-  let [searchTerm, setSearchTerm] = useState("");
-  let [searchResults, setSearchResults] = useState([]);
-
-  let [searchRterm, setSearchRterm] = useState("");
-  let [searchRresults, setSearchRresults] = useState([]);
-
+  let [user, setUser] = useState(Local.getUser());
+  let [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
 
-  const searchHandler = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    if(searchTerm !== "") {
-      const newContactList = clients.filter((contact) => {
-       return Object.values(contact)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      });
-      setSearchResults(newContactList);
+
+  // Functions for log in and log out
+
+  async function handleLogin(username, password) {
+    let response = await API.loginUser(username, password);
+    console.log(response)
+    if (response.ok) {
+        Local.saveUserInfo(response.data.token, response.data.user);
+        setUser(response.data.user);
+        setLoginError('');
+        navigate('/myjobs');
+    } else {
+        setLoginError(response.error);
+        console.log(loginError);
     }
-    else {
-      setSearchResults(clients);
-    }
-  };
-
-  const searchRepairHandler = (searchRterm) => {
-    setSearchRterm(searchRterm);
-    if(searchRterm !== "") {
-      const newRepairList = repairs.filter((repair) => {
-       return Object.values(repair)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchRterm.toLowerCase());
-      });
-      setSearchRresults(newRepairList);
-    }
-    else {
-      setSearchRresults(repairs);
-    }
-  };
-
-  useEffect(() => {
-    getClients();
-  }, []);
-
-  useEffect(() => {
-    getRepairs();
-  }, []);
-
-
-
-  const getClients = () => {
-    fetch("/clients")
-      .then(response => response.json())
-      .then(clients => {
-        setClients(clients);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-
-  const getRepairs = () => {
-    fetch("/repairs")
-      .then(response => response.json())
-      .then(repairs => {
-        setRepairs(repairs);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  async function addClient(client) {
-    // console.log('ADD CLIENT', client);
-
-    let options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(client)
-    };
-
-    try {
-      let response = await fetch("/clients", options);
-      if (response.ok) {
-        let data = await response.json();
-        setClients(data);
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Server error: ${err.message}`);
-    }
-
-    navigate('/clients');
   }
 
-  async function addRepair(repair) {
-    let options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(repair)
-    };
+  async function handleLogout() {
+    Local.removeUserInfo();
+    setUser(Local.getUser());
+  }
+  
+  // Sign up functions
 
-    try {
-      let response = await fetch("/repairs", options);
-      if (response.ok) {
-        let data = await response.json();
-        setRepairs(data);
-      } else {
-        console.log(`Server error: ${response.status} ${response.statusText}`);
-      }
-    } catch (err) {
-      console.log(`Server error: ${err.message}`);
+  const handleSignUp = async (newUser) => {
+    let response = await API.createUser(newUser.username, newUser.password, newUser.email);
+    if (response.ok) {
+      setLoginError('');
+      console.log("Sign up successful!")
+  } else {
+      setLoginError(response.error);
+      console.log(loginError);
+  }
+  }
+
+  // Change user info
+
+  async function updateUserInfo(userObj, route) {
+    let response = await API.updateUserInfo(userObj, route);
+    console.log(response)
+    if (response.ok) {
+        Local.saveUserInfo(response.data.token, response.data.user);
+        setUser(response.data.user);
+        setLoginError('');
+    } else {
+        setLoginError('Login failed');
+        console.log(loginError);
     }
-
-    navigate('/repairs');
   }
 
   return (
     <div className="App">
-      <Navbar />
-      <div className="flex">
-        <Sidebar />
-        <div className="content">
+      <Navbar user={user} logoutCB={() => handleLogout()} />
+      <div className="d-flex">
+        <Sidebar user={user} />
+        <div className="content">          
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/clients" element={<Clients 
-            clients={searchTerm.length < 1 ? clients : searchResults} 
-            term={searchTerm} 
-            searchKeyword={searchHandler} />} />
-            <Route path="/repairs" element={<Repairs 
-            repairs={searchRterm.length < 1 ? repairs : searchRresults } 
-            repairTerm={searchRterm}
-            searchRepKeyword={searchRepairHandler} />} />
-            <Route path="/add-client" element={<AddClientView addClientCb={client => addClient(client)} />} />
-            <Route path="/add-repair" element={<AddRepairView addRepairCb={repair => addRepair(repair)}/>} />
+
+            <Route path="/login" 
+            element={<LogIn 
+                          logInCb={(username, password) => handleLogin(username, password)}/>}
+                          loginError={loginError}
+                          />
+            <Route path="/signup" element={<SignUp addUserCb={(newUser) => handleSignUp(newUser)} />} />
+            
+            <Route path="/clients" element={
+                <PrivateRoute>
+                    <Clients />
+                </PrivateRoute> 
+              } />    
+                
+            <Route path="/clients/add" element={
+              <PrivateRoute>
+                <AddClientView />
+              </PrivateRoute>    
+              } />
+
+            <Route path="/mysettings" element={
+              <PrivateRoute>
+                <MySettings user={user} updateUserCB={(userObj, route) => updateUserInfo(userObj, route)} />
+              </PrivateRoute>    
+              } />
+
+            <Route path="/repairs" element={
+              <PrivateRoute>
+                  <Repairs />
+              </PrivateRoute>
+            } />
+            
+            
+            <Route path="/repairs/add" element={
+              <PrivateRoute>
+                <AddRepairView user={user} />
+
+              </PrivateRoute>
+             } /> 
+
+            <Route path="/repairs/edit/:repair_id" element={
+              <PrivateRoute>
+                <EditRepairView user={user} />
+
+              </PrivateRoute>
+             } />  
+                
+
+            <Route path="/myjobs" element={
+            
+              <PrivateRoute>
+                <MyJobs user={user} />
+              </PrivateRoute>
+              } />
+
+            <Route path="/manageusers" element={
+            
+            <AdminRoute>
+              <ManageUsers user={user} />
+            </AdminRoute>
+            } />
+
+            
           </Routes>
       </div>
 
