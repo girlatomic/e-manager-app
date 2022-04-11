@@ -142,7 +142,7 @@ function RepairForm(props) {
           >
             <option value="">Choose existing client</option>
             {clients.map((c) => (
-              <option value={c.id}>
+              <option key={c.id} value={c.id}>
                 {c.first_name} {c.last_name}
               </option>
             ))}
@@ -166,7 +166,9 @@ function RepairForm(props) {
             >
               <option value="">Choose...</option>
               {users.map((u) => (
-                <option value={u.userid}>{u.username}</option>
+                <option key={u.userid} value={u.userid}>
+                  {u.username}
+                </option>
               ))}
             </select>
           </div>
@@ -208,7 +210,9 @@ function RepairForm(props) {
             >
               <option value="">Choose...</option>
               {users.map((u) => (
-                <option value={u.userid}>{u.username}</option>
+                <option key={u.userid} value={u.userid}>
+                  {u.username}
+                </option>
               ))}
             </select>
           </div>

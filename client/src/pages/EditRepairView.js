@@ -31,10 +31,8 @@ const EditRepairView = (props) => {
 
   const getJob = async () => {
     let response = await API.getContent(`/repairs/${repair_id}`);
-    console.log("The response was", response);
     if (response.ok) {
       setJob(response.data[0]);
-      console.log("this is jaab", response.data[0]);
     } else {
       setErrorMsg(response.error);
     }
@@ -54,7 +52,7 @@ const EditRepairView = (props) => {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className="mb-5">
         <h2>
           <AiOutlineForm />

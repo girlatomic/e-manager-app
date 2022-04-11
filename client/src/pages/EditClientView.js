@@ -28,10 +28,8 @@ const EditClientView = (props) => {
 
   const getClient = async () => {
     let response = await API.getContent(`/clients/${id}`);
-    console.log("this is res", response);
     if (response.ok) {
       setClient(response.data);
-      console.log("eeee", response.data);
     } else {
       setErrorMsg(response.error);
     }

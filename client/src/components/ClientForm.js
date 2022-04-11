@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 const INIT_STATE = {
   first_name: "",
@@ -16,8 +15,12 @@ function ClientForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    props.addClientCb(formData);
-    setFormData(INIT_STATE);
+    if (props.formType === "Edit") {
+      props.editClientCb(formData);
+    } else if (props.formType === "Add") {
+      props.addClientCb(formData);
+      setFormData(INIT_STATE);
+    }
   }
 
   function handleChange(event) {
