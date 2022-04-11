@@ -1,21 +1,21 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 const db = require("../model/helper");
-const {ensureUserLoggedIn} = require("../middleware/guards");
+const { ensureUserLoggedIn } = require("../middleware/guards");
 
 /* GET repairs listing. */
-router.get('/', ensureUserLoggedIn, function(req, res, next) {
+router.get("/", ensureUserLoggedIn, function (req, res, next) {
   db(`SELECT r.*, c.first_name, c.last_name, u.username 
       FROM repairs AS r 
       JOIN clients AS c ON r.client_id = c.id 
       JOIN users as u ON r.assignedto = u.userid;`)
-    .then(results => {
+    .then((results) => {
       res.send(results.data);
     })
-    .catch(err => res.status(500).send(err));
+    .catch((err) => res.status(500).send(err));
 });
 
-// GET by ID 
+// GET by ID
 router.get("/:id", async (req, res, next) => {
   let id = req.params.id;
 
@@ -34,7 +34,6 @@ router.get("/:id", async (req, res, next) => {
     res.status(500).send({ error: err.message });
   }
 });
-
 
 // GET by User ID (the person assigned to work on the job)
 router.get("/user/:userid", async (req, res, next) => {
@@ -57,27 +56,38 @@ router.get("/user/:userid", async (req, res, next) => {
 });
 
 router.post("/", async (req, res, next) => {
-    let { model, brand, serial_number, repair_status, client_id, assignedto, notes } = req.body;
-    let sql = "";
-    if (repair_status === "Not yet assigned") {
-      sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, notes)
+  let {
+    model,
+    brand,
+    serial_number,
+    repair_status,
+    client_id,
+    assignedto,
+    notes,
+  } = req.body;
+  let sql = "";
+  if (repair_status === "Not yet assigned") {
+    sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, notes)
       VALUES ('${model}','${brand}', '${serial_number}', '${repair_status}', ${client_id}, '${notes}')`;
-    } else {
-      sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, assignedto, notes)
+  } else {
+    sql = `INSERT INTO repairs (model, brand, serial_number, repair_status, client_id, assignedto, notes)
       VALUES ('${model}','${brand}', '${serial_number}', '${repair_status}', ${client_id}, ${assignedto}, '${notes}')`;
-    }
-    try {
-      await db(sql);
-      let result = await db("SELECT r.*, c.first_name, c.last_name FROM repairs AS r JOIN clients AS c ON r.client_id = c.id;"); // get new list
-      res.send(result.data);
-    } catch (err) {
-      res.status(500).send({ error: err.message });
-    }
+  }
+  try {
+    await db(sql);
+    let result = await db(
+      "SELECT r.*, c.first_name, c.last_name FROM repairs AS r JOIN clients AS c ON r.client_id = c.id;"
+    ); // get new list
+    res.send(result.data);
+  } catch (err) {
+    res.status(500).send({ error: err.message });
+  }
 });
 
 router.put("/:id", async (req, res, next) => {
   let id = req.params.id;
-  let { model, brand, serial_number, repair_status, client_id, assignedto } = req.body;
+  let { model, brand, serial_number, repair_status, client_id, assignedto } =
+    req.body;
   let sqlCheckID = `SELECT * FROM repairs WHERE repair_id = ${id}`;
   let sqlUpdate = `
     UPDATE repairs SET
@@ -92,7 +102,7 @@ router.put("/:id", async (req, res, next) => {
   let sqlGetRepairs = `SELECT r.*, c.first_name, c.last_name, u.username 
                       FROM repairs AS r 
                       JOIN clients AS c ON r.client_id = c.id
-                      JOIN users as u ON r.assignedto = u.userid;`
+                      JOIN users as u ON r.assignedto = u.userid;`;
   try {
     let result = await db(sqlCheckID);
     if (result.data.length === 0) {
@@ -103,8 +113,7 @@ router.put("/:id", async (req, res, next) => {
       let repairs = result.data;
       res.status(201).send(repairs);
     }
-  }
- catch (err) {
+  } catch (err) {
     res.status(500).send({ error: err.message });
   }
 });

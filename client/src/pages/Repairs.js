@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
-import { Link } from 'react-router-dom';
-import { Col, Container, Row } from 'react-bootstrap';
-import { Table } from 'react-bootstrap';
-import {AiFillTool} from 'react-icons/ai';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
+import { Table } from "react-bootstrap";
+import { AiFillTool } from "react-icons/ai";
 import API from "../helpers/API";
 
 function Repairs(props) {
@@ -10,58 +10,61 @@ function Repairs(props) {
   const [repairs, setRepairs] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [jobToEdit, setJobToEdit] = useState({});
-  const [showReassign, setShowReassign] = useState(false)
+  const [showReassign, setShowReassign] = useState(false);
 
   useEffect(() => {
     getRepairs();
   }, []);
 
   const getRepairs = async () => {
-    let response = await API.getContent('/repairs');
+    let response = await API.getContent("/repairs");
     if (response.ok) {
-      setRepairs(response.data)
-    }
-    else {
-      setErrorMsg(response.error)
+      setRepairs(response.data);
+    } else {
+      setErrorMsg(response.error);
     }
   };
 
   const handleSearch = (e) => {
-    setInput(e.target.value)
+    setInput(e.target.value);
   };
 
   const updateJobList = async (updatedJob, jobid) => {
     let response = await API.updateContent(`/repairs/${jobid}`, updatedJob);
     if (response.ok) {
-      setRepairs(response.data)
-    }
-    else {
+      setRepairs(response.data);
+    } else {
       setErrorMsg(response.error);
     }
     setShowReassign(false);
-  }
+  };
 
   return (
     <Container>
-      <h2><AiFillTool/>Repairs</h2>
+      <h2>
+        <AiFillTool />
+        Repairs
+      </h2>
       <Row>
         <Col className="text-start mt-5 mb-5">
-          <Link to="/repairs/add" className="btn btn-primary" role="button">+ Add Repair</Link>
+          <Link to="/repairs/add" className="btn btn-primary" role="button">
+            + Add Repair
+          </Link>
         </Col>
         <Col>
-       <div className="input-group mt-5 mb-5">
-                <input
-                className="form-control me-2"
-                name="input"
-                placeholder="Search..."
-                type="text"
-                value={input}
-                onChange={(e) => handleSearch(e)}
-                aria-label="Search"
-                />
-            </div>
+          <div className="input-group mt-5 mb-5">
+            <input
+              className="form-control me-2"
+              name="input"
+              placeholder="Search..."
+              type="text"
+              value={input}
+              onChange={(e) => handleSearch(e)}
+              aria-label="Search"
+            />
+          </div>
         </Col>
-     </Row>
+      </Row>
 
       <Table bordered>
         <thead>
@@ -77,29 +80,29 @@ function Repairs(props) {
           </tr>
         </thead>
         <tbody>
-          {
-            repairs
-            .filter(r => {
+          {repairs
+            .filter((r) => {
               if (input === "") {
-                return r
-              } 
-              else if (r.model.toLowerCase().includes(input.toLowerCase())) {
-                return r
-              }
-              else if (r.brand.toLowerCase().includes(input.toLowerCase())) {
-                return r
-              }
-              else if (r.serial_number.toLowerCase().includes(input.toLowerCase())) {
-                return r
-              }
-              else if (r.first_name.toLowerCase().includes(input.toLowerCase())) {
-                return r
-              }
-              else if (r.last_name.toLowerCase().includes(input.toLowerCase())) {
-                return r
+                return r;
+              } else if (r.model.toLowerCase().includes(input.toLowerCase())) {
+                return r;
+              } else if (r.brand.toLowerCase().includes(input.toLowerCase())) {
+                return r;
+              } else if (
+                r.serial_number.toLowerCase().includes(input.toLowerCase())
+              ) {
+                return r;
+              } else if (
+                r.first_name.toLowerCase().includes(input.toLowerCase())
+              ) {
+                return r;
+              } else if (
+                r.last_name.toLowerCase().includes(input.toLowerCase())
+              ) {
+                return r;
               }
             })
-            .map(r => (
+            .map((r) => (
               <tr key={r.repair_id}>
                 <td>{r.repair_id}</td>
                 <td>{r.model}</td>
@@ -107,16 +110,22 @@ function Repairs(props) {
                 <td>{r.serial_number}</td>
                 <td>{r.repair_status}</td>
                 <td>{r.username}</td>
-                <td>{r.first_name} {r.last_name}</td>
-                <td><Link to={'/repairs/edit/'+r.repair_id} className="btn btn-success btn-sm me-2">Edit</Link>
-                    <button className="btn btn-danger btn-sm">Delete</button>
+                <td>
+                  {r.first_name} {r.last_name}
+                </td>
+                <td>
+                  <Link
+                    to={"/repairs/edit/" + r.repair_id}
+                    className="btn btn-success btn-sm me-2"
+                  >
+                    Edit
+                  </Link>
+                  <button className="btn btn-danger btn-sm">Delete</button>
                 </td>
               </tr>
-            ))
-          }
+            ))}
         </tbody>
       </Table>
-    
     </Container>
   );
 }
