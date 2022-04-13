@@ -40,7 +40,7 @@ function Repairs(props) {
   };
 
   return (
-    <Container>
+    <div className="container-fluid">
       <h2>
         <AiFillTool />
         Repairs
@@ -66,67 +66,90 @@ function Repairs(props) {
         </Col>
       </Row>
 
-      <Table bordered>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Model</th>
-            <th>Brand</th>
-            <th>Serial number</th>
-            <th>Status</th>
-            <th>Assigned to</th>
-            <th>Client name</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {repairs
-            .filter((r) => {
-              if (input === "") {
-                return r;
-              } else if (r.model.toLowerCase().includes(input.toLowerCase())) {
-                return r;
-              } else if (r.brand.toLowerCase().includes(input.toLowerCase())) {
-                return r;
-              } else if (
-                r.serial_number.toLowerCase().includes(input.toLowerCase())
-              ) {
-                return r;
-              } else if (
-                r.first_name.toLowerCase().includes(input.toLowerCase())
-              ) {
-                return r;
-              } else if (
-                r.last_name.toLowerCase().includes(input.toLowerCase())
-              ) {
-                return r;
-              }
-            })
-            .map((r) => (
-              <tr key={r.repair_id}>
-                <td>{r.repair_id}</td>
-                <td>{r.model}</td>
-                <td>{r.brand}</td>
-                <td>{r.serial_number}</td>
-                <td>{r.repair_status}</td>
-                <td>{r.username}</td>
-                <td>
-                  {r.first_name} {r.last_name}
-                </td>
-                <td>
-                  <Link
-                    to={"/repairs/edit/" + r.repair_id}
-                    className="btn btn-success btn-sm me-2"
-                  >
-                    Edit
-                  </Link>
-                  <button className="btn btn-danger btn-sm">Delete</button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
-    </Container>
+      <div className="row">
+        <div className="col-md-12 mb-3">
+          <div className="card">
+            {/* <div className="card-header">All repairs</div> */}
+            <div className="card-body">
+              <div className="table">
+                <Table bordered responsive>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Model</th>
+                      <th>Brand</th>
+                      <th>Serial number</th>
+                      <th>Status</th>
+                      <th>Assigned to</th>
+                      <th>Client name</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {repairs
+                      .filter((r) => {
+                        if (input === "") {
+                          return r;
+                        } else if (
+                          r.model.toLowerCase().includes(input.toLowerCase())
+                        ) {
+                          return r;
+                        } else if (
+                          r.brand.toLowerCase().includes(input.toLowerCase())
+                        ) {
+                          return r;
+                        } else if (
+                          r.serial_number
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        ) {
+                          return r;
+                        } else if (
+                          r.first_name
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        ) {
+                          return r;
+                        } else if (
+                          r.last_name
+                            .toLowerCase()
+                            .includes(input.toLowerCase())
+                        ) {
+                          return r;
+                        }
+                      })
+                      .map((r) => (
+                        <tr key={r.repair_id}>
+                          <td>{r.repair_id}</td>
+                          <td>{r.model}</td>
+                          <td>{r.brand}</td>
+                          <td>{r.serial_number}</td>
+                          <td>{r.repair_status}</td>
+                          <td>{r.username}</td>
+                          <td>
+                            {r.first_name} {r.last_name}
+                          </td>
+                          <td>
+                            <Link
+                              to={"/repairs/edit/" + r.repair_id}
+                              className="btn btn-success btn-sm me-2"
+                            >
+                              Edit
+                            </Link>
+                            <button className="btn btn-danger btn-sm">
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

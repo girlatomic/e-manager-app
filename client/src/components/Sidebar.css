@@ -43,8 +43,8 @@ li {
 
 .side-menu {
   position: fixed;
-  background: #000;
-  width: 300px;
+  background: #020828;
+  width: 200px;
   height: 100%;
   box-sizing: border-box;
   padding: 30px 20px;
@@ -76,9 +76,9 @@ li {
   cursor: pointer;
 }
 
-.side-menu.inactive .top-section .toggle-menu-btn {
-  /* right: -50px; */
-}
+/* .side-menu.inactive .top-section .toggle-menu-btn {
+  right: -50px;
+} */
 
 .side-menu .main-menu .menu-item {
   color: rgb(123, 123, 123);
@@ -90,7 +90,13 @@ li {
 }
 
 .side-menu .main-menu .menu-item.active {
-  background: #333;
+  background: #721aff;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.side-menu .main-menu .menu-item:hover {
+  background: #b1b122;
   border-radius: 5px;
   color: #fff;
 }
