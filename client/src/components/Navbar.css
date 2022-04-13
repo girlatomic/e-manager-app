@@ -3,4 +3,10 @@
   height: 70px;
   color: rgb(140, 182, 255);
   padding: 10px;
+  text-decoration: none;
+}
+
+.logo {
+  color: rgb(140, 182, 255);
+  text-decoration: none;
 }

@@ -94,6 +94,7 @@ export default function App() {
             setInactive(inactive);
           }}
         />
+
         <div className={`content ${inactive ? "inactive" : ""}`}>
           <Routes>
             <Route path="/" element={<Home />} />

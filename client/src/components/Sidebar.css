@@ -44,7 +44,7 @@ li {
 
 .side-menu {
   position: fixed;
-  background: #020828;
+  background: #120567;
   width: 200px;
   height: 100%;
   box-sizing: border-box;
@@ -68,7 +68,7 @@ li {
 } */
 
 .side-menu .top-section .toggle-menu-btn {
-  color: rgb(189, 187, 187);
+  color: #b1b122;
   font-size: 25px;
   position: absolute;
   top: 40%;
@@ -82,7 +82,7 @@ li {
 }
 
 .side-menu .main-menu .menu-item {
-  color: rgb(123, 123, 123);
+  color: rgb(215, 213, 213);
   text-decoration: none;
   font-size: 15px;
   display: block;
@@ -97,7 +97,7 @@ li {
 }
 
 .side-menu .main-menu .menu-item:hover {
-  background: #b1b122;
+  background: rgb(140, 182, 255);
   border-radius: 5px;
   color: #fff;
 }

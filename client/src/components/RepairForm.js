@@ -67,7 +67,7 @@ function RepairForm(props) {
   }
 
   return (
-    <Container className="addRepairView">
+    <div>
       <form className="row m-4 rounded" onSubmit={handleSubmit}>
         <div className="mb-4 col-6">
           <label htmlFor="inputModel" className="form-label">
@@ -252,7 +252,7 @@ function RepairForm(props) {
           </button>
         </div>
       </form>
-    </Container>
+    </div>
   );
 }
 

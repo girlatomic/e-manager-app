@@ -52,7 +52,7 @@ const EditRepairView = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="content">
       <div className="mb-5">
         <h2>
           <AiOutlineForm />

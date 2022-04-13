@@ -36,7 +36,7 @@ const AddRepairView = (props) => {
   };
 
   return (
-    <Container>
+    <div className="content">
       <div className="mb-5">
         <h2>
           <AiOutlineForm />
@@ -55,7 +55,7 @@ const AddRepairView = (props) => {
         onHide={() => setModalShow(false)}
         modalInfo={modalInfo}
       />
-    </Container>
+    </div>
   );
 };
 

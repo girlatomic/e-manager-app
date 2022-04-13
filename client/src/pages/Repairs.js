@@ -66,7 +66,7 @@ function Repairs(props) {
         </Col>
       </Row>
 
-      <div className="row">
+      <Row>
         <div className="col-md-12 mb-3">
           <div className="card">
             {/* <div className="card-header">All repairs</div> */}
@@ -148,7 +148,7 @@ function Repairs(props) {
             </div>
           </div>
         </div>
-      </div>
+      </Row>
     </div>
   );
 }

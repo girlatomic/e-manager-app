@@ -5,10 +5,12 @@ import Local from "../helpers/Local";
 
 function Navbar(props) {
   return (
-    <nav id="navbar" className="navbar stick-top">
+    <nav id="navbar" className="navbar nav sticky-top">
       <div className="container-fluid">
-        <div className="navbar-brand">
-          <h3>e·Manager</h3>
+        <div className="logo">
+          <Link className="logo" to="/">
+            <h3>e·Manager</h3>
+          </Link>
         </div>
 
         {props.user ? (

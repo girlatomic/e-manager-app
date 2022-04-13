@@ -29,7 +29,7 @@ const MyJobs = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="content">
       <h2>
         <BsCardChecklist className="me-2" />
         My Jobs

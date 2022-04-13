@@ -31,7 +31,7 @@ function AddClientView(props) {
   };
 
   return (
-    <div className="container">
+    <div className="content">
       <h2>
         <IoMdPersonAdd className="me-1" />
         Add New Client

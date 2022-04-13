@@ -1,18 +1,29 @@
-import React from 'react'
-import {Link} from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Home.css";
 
 const Home = () => {
   return (
-     <div className='home d-flex flex-column justify-content-center align-items-center'>
-      <h1>Welcome to e·Manager!</h1>
-      <div className="d-flex">
-      <Link className="btn btn-primary me-3" to="/signup">Create New Account</Link>
-      <Link className="btn btn-primary" to="/login">Log In</Link>
+    <div className="home d-flex">
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-8 mx-auto text-center">
+            <h1>Welcome to e·Manager!</h1>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-8 mx-auto text-center">
+            <Link className="btn btn-primary me-3" to="/signup">
+              Create New Account
+            </Link>
+            <Link className="btn btn-primary" to="/login">
+              Log In
+            </Link>
+          </div>
+        </div>
       </div>
-      
-     </div>
+    </div>
+  );
+};
 
-  )
-}
-
-export default Home
+export default Home;
