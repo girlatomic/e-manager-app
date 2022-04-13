@@ -20,7 +20,6 @@ function Sidebar(props) {
   return (
     <div className={`side-menu ${inactive ? "inactive" : ""}`}>
       <div className="top-section">
-        {/* <div className="logo">e·Manager</div> */}
         <div onClick={() => setInactive(!inactive)} className="toggle-menu-btn">
           {inactive ? (
             <BsFillArrowRightSquareFill />
@@ -32,17 +31,12 @@ function Sidebar(props) {
       <div className="main-menu">
         <ul>
           {!props.user && (
-            <li className="d-flex">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "active sb-link text-light ps-3"
-                    : "sb-link text-light ps-3"
-                }
-                to="/"
-              >
-                <FaHome className="me-2" />
-                Home
+            <li>
+              <NavLink className="menu-item" to="/">
+                <div className="menu-icon">
+                  <FaHome />
+                </div>
+                <span>Home</span>
               </NavLink>
             </li>
           )}

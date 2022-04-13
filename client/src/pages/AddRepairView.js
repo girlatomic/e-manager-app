@@ -37,7 +37,7 @@ const AddRepairView = (props) => {
 
   return (
     <div className="content">
-      <div className="mb-5">
+      <div className="me-5">
         <h2>
           <AiOutlineForm />
           New Repair Order

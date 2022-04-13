@@ -32,10 +32,12 @@ function AddClientView(props) {
 
   return (
     <div className="content">
-      <h2>
-        <IoMdPersonAdd className="me-1" />
-        Add New Client
-      </h2>
+      <div className="me-5 mb-5">
+        <h2>
+          <IoMdPersonAdd className="me-1" />
+          Add New Client
+        </h2>
+      </div>
       <ClientForm
         client={client}
         addClientCb={(newClient) => handleAddClient(newClient)}

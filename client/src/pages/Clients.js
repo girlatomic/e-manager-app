@@ -45,10 +45,12 @@ function Clients(props) {
 
   return (
     <div className="content">
-      <h2>
-        <IoMdPeople />
-        Clients
-      </h2>
+      <div className="me-5">
+        <h2>
+          <IoMdPeople />
+          Clients
+        </h2>
+      </div>
       <Row>
         <Col className="text-start mt-5 mb-5">
           <Link to="/clients/add" className="btn btn-primary" role="button">
@@ -59,7 +61,7 @@ function Clients(props) {
         <Col>
           <div className="input-group mt-5 mb-5">
             <input
-              className="form-control me-2"
+              className="form-control me-5"
               type="text"
               placeholder="Search"
               name="search-term"
@@ -72,7 +74,7 @@ function Clients(props) {
 
       <Row>
         <div className="col-md-12 mb-2">
-          <div className="card">
+          <div className="card me-5">
             {/* <div className="card-header">All repairs</div> */}
             <div className="card-body">
               <div className="table"></div>

@@ -47,7 +47,7 @@ const EditClientView = (props) => {
 
   return (
     <div className="content">
-      <div className="mb-5">
+      <div className="me-5 mb-5">
         <h2>
           <AiOutlineForm />
           Edit Client Info

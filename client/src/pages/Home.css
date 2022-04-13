@@ -1,4 +1,4 @@
-.home {
+#home {
   font-size: 5rem;
   background: linear-gradient(
     90deg,
@@ -11,5 +11,4 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 10px;
 }

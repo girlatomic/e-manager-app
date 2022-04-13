@@ -4,7 +4,7 @@ import "./Home.css";
 
 const Home = () => {
   return (
-    <div className="home d-flex">
+    <div className="home d-flex" id="home">
       <div className="container">
         <div className="row">
           <div className="col-lg-8 mx-auto text-center">
@@ -16,7 +16,7 @@ const Home = () => {
             <Link className="btn btn-primary me-3" to="/signup">
               Create New Account
             </Link>
-            <Link className="btn btn-primary" to="/login">
+            <Link className="btn btn-primary me-3" to="/login">
               Log In
             </Link>
           </div>

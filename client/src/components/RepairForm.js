@@ -68,7 +68,7 @@ function RepairForm(props) {
 
   return (
     <div>
-      <form className="row m-4 rounded" onSubmit={handleSubmit}>
+      <form className="row rounded mt-5 me-5" onSubmit={handleSubmit}>
         <div className="mb-4 col-6">
           <label htmlFor="inputModel" className="form-label">
             Model

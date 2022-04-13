@@ -30,10 +30,12 @@ const MyJobs = (props) => {
 
   return (
     <div className="content">
-      <h2>
-        <BsCardChecklist className="me-2" />
-        My Jobs
-      </h2>
+      <div className="mb-5 me-5">
+        <h2>
+          <BsCardChecklist className="me-2" />
+          My Jobs
+        </h2>
+      </div>
 
       <div className="mt-5 mb-4">
         <label className="me-2">Filter by status:</label>
@@ -46,40 +48,42 @@ const MyJobs = (props) => {
         </select>
       </div>
 
-      <Table bordered>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Model</th>
-            <th>Brand</th>
-            <th>Serial number</th>
-            <th>Status</th>
-            <th>Client name</th>
-          </tr>
-        </thead>
-        <tbody>
-          {myRepairs
-            .filter((r) => {
-              if (filter === "Show all") {
-                return r;
-              } else if (r.repair_status === filter) {
-                return r;
-              }
-            })
-            .map((r) => (
-              <tr key={r.repair_id}>
-                <td>{r.repair_id}</td>
-                <td>{r.model}</td>
-                <td>{r.brand}</td>
-                <td>{r.serial_number}</td>
-                <td>{r.repair_status}</td>
-                <td>
-                  {r.first_name} {r.last_name}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </Table>
+      <div className="me-5">
+        <Table bordered responsive>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Model</th>
+              <th>Brand</th>
+              <th>Serial number</th>
+              <th>Status</th>
+              <th>Client name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {myRepairs
+              .filter((r) => {
+                if (filter === "Show all") {
+                  return r;
+                } else if (r.repair_status === filter) {
+                  return r;
+                }
+              })
+              .map((r) => (
+                <tr key={r.repair_id}>
+                  <td>{r.repair_id}</td>
+                  <td>{r.model}</td>
+                  <td>{r.brand}</td>
+                  <td>{r.serial_number}</td>
+                  <td>{r.repair_status}</td>
+                  <td>
+                    {r.first_name} {r.last_name}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </Table>
+      </div>
     </div>
   );
 };

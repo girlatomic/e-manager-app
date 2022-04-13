@@ -41,10 +41,12 @@ function Repairs(props) {
 
   return (
     <div className="content">
-      <h2>
-        <AiFillTool />
-        Repairs
-      </h2>
+      <div className="me-5">
+        <h2>
+          <AiFillTool />
+          Repairs
+        </h2>
+      </div>
       <Row>
         <Col className="text-start mt-5 mb-5">
           <Link to="/repairs/add" className="btn btn-primary" role="button">
@@ -54,7 +56,7 @@ function Repairs(props) {
         <Col>
           <div className="input-group mt-5 mb-5">
             <input
-              className="form-control me-2"
+              className="form-control me-5"
               name="input"
               placeholder="Search..."
               type="text"
@@ -67,8 +69,8 @@ function Repairs(props) {
       </Row>
 
       <Row>
-        <div className="col-md-12 mb-3">
-          <div className="card">
+        <div className="col-md-12 mb-3 me-2">
+          <div className="card me-5">
             {/* <div className="card-header">All repairs</div> */}
             <div className="card-body">
               <div className="table">
