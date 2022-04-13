@@ -7,11 +7,11 @@
   font-family: "Lato", sans-serif;
 }
 
-.content {
+/* .container {
   display: flex;
   width: 100%;
   text-align: left;
-}
+} */
 
 h2 {
   margin-top: 10px;
@@ -104,5 +104,12 @@ td {
 }
 
 .container {
-  width: 1200px;
+  margin-left: 200px;
+  transition: margin-left 0.2s ease-in;
+  /* padding: 50px; */
+  box-sizing: border-box;
+}
+
+.container.inactive {
+  margin-left: 80px;
 }

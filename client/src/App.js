@@ -28,6 +28,7 @@ export default function App() {
   let [user, setUser] = useState(Local.getUser());
   let [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
+  const [inactive, setInactive] = useState(false);
 
   // Functions for log in and log out
 
@@ -85,9 +86,15 @@ export default function App() {
   return (
     <div className="App">
       <Navbar user={user} logoutCB={() => handleLogout()} />
-      <div className="d-flex">
-        <Sidebar user={user} />
-        <div className="content">
+      <div>
+        <Sidebar
+          user={user}
+          onCollapse={(inactive) => {
+            console.log(inactive);
+            setInactive(inactive);
+          }}
+        />
+        <div className={`container ${inactive ? "inactive" : ""}`}>
           <Routes>
             <Route path="/" element={<Home />} />
 

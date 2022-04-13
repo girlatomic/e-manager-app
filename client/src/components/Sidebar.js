@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import { FaHome } from "react-icons/fa";
 import { BsCardChecklist } from "react-icons/bs";
@@ -7,101 +7,96 @@ import { AiFillTool } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { BsGearFill } from "react-icons/bs";
+import { BsFillArrowLeftSquareFill } from "react-icons/bs";
+import { BsFillArrowRightSquareFill } from "react-icons/bs";
 
 function Sidebar(props) {
+  const [inactive, setInactive] = useState(false);
+
+  useEffect(() => {
+    props.onCollapse(inactive);
+  }, [inactive]);
+
   return (
-    <nav className="nav-menu">
-      <div className="nav-menu-items">
-        {!props.user && (
-          <div className="d-flex">
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "active sb-link text-light ps-3"
-                  : "sb-link text-light ps-3"
-              }
-              to="/"
-            >
-              <FaHome className="me-2" />
-              Home
-            </NavLink>
-          </div>
-        )}
-
-        {props.user && props.user.usertype === "admin" && (
-          <div className="d-flex align-items-center justify-content-center">
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "active sb-link text-light ps-3"
-                  : "sb-link text-light ps-3"
-              }
-              to="/manageusers"
-            >
-              <RiUserSettingsFill className="me-2" />
-              Manage Users
-            </NavLink>
-          </div>
-        )}
-
-        {props.user && (
-          <div>
-            <div className="d-flex align-items-center justify-content-center">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "active sb-link text-light ps-3"
-                    : "sb-link text-light ps-3"
-                }
-                to="/myjobs"
-              >
-                <BsCardChecklist className="me-2" />
-                My Jobs
-              </NavLink>
-            </div>
-            <div className="d-flex align-items-center justify-content-center">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "active sb-link text-light ps-3"
-                    : "sb-link text-light ps-3"
-                }
-                to="/mysettings"
-              >
-                <BsGearFill className="me-2" />
-                My Settings
-              </NavLink>
-            </div>
-            <div className="d-flex align-items-center justify-content-center">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "active sb-link text-light ps-3"
-                    : "sb-link text-light ps-3"
-                }
-                to="/repairs"
-              >
-                <AiFillTool className="me-2" />
-                All Repairs
-              </NavLink>
-            </div>
-            <div className="d-flex align-items-center justify-content-center">
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "active sb-link text-light ps-3"
-                    : "sb-link text-light ps-3"
-                }
-                to="/clients"
-              >
-                <IoMdPeople className="me-2" />
-                Clients
-              </NavLink>
-            </div>
-          </div>
-        )}
+    <div className={`side-menu ${inactive ? "inactive" : ""}`}>
+      <div className="top-section">
+        {/* <div className="logo">e·Manager</div> */}
+        <div onClick={() => setInactive(!inactive)} className="toggle-menu-btn">
+          {inactive ? (
+            <BsFillArrowRightSquareFill />
+          ) : (
+            <BsFillArrowLeftSquareFill />
+          )}
+        </div>
       </div>
-    </nav>
+      <div className="main-menu">
+        <ul>
+          {!props.user && (
+            <li className="d-flex">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? "active sb-link text-light ps-3"
+                    : "sb-link text-light ps-3"
+                }
+                to="/"
+              >
+                <FaHome className="me-2" />
+                Home
+              </NavLink>
+            </li>
+          )}
+
+          {props.user && props.user.usertype === "admin" && (
+            <li>
+              <NavLink className="menu-item" to="/manageusers">
+                <div className="menu-icon">
+                  <RiUserSettingsFill />
+                </div>
+                <span>Manage Users</span>
+              </NavLink>
+            </li>
+          )}
+
+          {props.user && (
+            <div>
+              <li>
+                <NavLink className="menu-item" to="/myjobs">
+                  <div className="menu-icon">
+                    <BsCardChecklist />
+                  </div>
+                  <span>My Jobs</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="menu-item" to="/mysettings">
+                  <div className="menu-icon">
+                    <BsGearFill />
+                  </div>
+                  <span>My Settings</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="menu-item" to="/repairs">
+                  <div className="menu-icon">
+                    <AiFillTool />
+                  </div>
+                  <span>All Repairs</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="menu-item" to="/clients">
+                  <div className="menu-icon">
+                    <IoMdPeople />
+                  </div>
+                  <span>Clients</span>
+                </NavLink>
+              </li>
+            </div>
+          )}
+        </ul>
+      </div>
+    </div>
   );
 }
 
