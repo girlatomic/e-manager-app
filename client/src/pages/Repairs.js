@@ -40,7 +40,7 @@ function Repairs(props) {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="content">
       <h2>
         <AiFillTool />
         Repairs

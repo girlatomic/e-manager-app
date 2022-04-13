@@ -103,16 +103,17 @@ td {
   background: rgb(238, 146, 7);
 }
 
-.container {
-  width: auto;
-  margin-left: 200px;
+.content {
+  /* width: auto; */
+  margin-left: 100px;
   transition: margin-left 0.2s ease-in;
   padding: 5px;
   box-sizing: border-box;
 }
 
-.container.inactive {
-  margin-left: 90px;
+.content.inactive {
+  margin-left: 30px;
+  margin-right: 40px;
 }
 
 /* .container-lg {

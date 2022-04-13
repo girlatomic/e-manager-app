@@ -39,6 +39,7 @@ ul {
 }
 li {
   list-style: none;
+  margin-top: 20px;
 }
 
 .side-menu {
@@ -59,16 +60,16 @@ li {
   position: relative;
 }
 
-.side-menu .top-section .logo {
+/* .side-menu .top-section .logo {
   color: rgb(140, 182, 255);
   overflow: hidden;
   display: inline-block;
   font-size: 28px;
-}
+} */
 
 .side-menu .top-section .toggle-menu-btn {
   color: rgb(189, 187, 187);
-  font-size: 20px;
+  font-size: 25px;
   position: absolute;
   top: 40%;
   right: 0px;
@@ -76,9 +77,9 @@ li {
   cursor: pointer;
 }
 
-/* .side-menu.inactive .top-section .toggle-menu-btn {
-  right: -50px;
-} */
+.side-menu.inactive .top-section .toggle-menu-btn {
+  right: 5px;
+}
 
 .side-menu .main-menu .menu-item {
   color: rgb(123, 123, 123);
