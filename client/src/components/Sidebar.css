@@ -103,8 +103,4 @@ li {
     opacity: 1;
     transition: opacity 0.2s ease-in;
   }
-
-  .content {
-    margin: none;
-  }
 }
