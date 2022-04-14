@@ -91,3 +91,20 @@ li {
   height: 0;
   overflow: hidden;
 }
+
+@media only screen and (max-width: 800px) {
+  .side-menu {
+    width: 80px;
+  }
+  .side-menu .main-menu .menu-item span {
+    position: absolute;
+    display: inline-block;
+    line-height: 40px;
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+  }
+
+  .content {
+    margin: none;
+  }
+}
