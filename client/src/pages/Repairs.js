@@ -137,9 +137,6 @@ function Repairs(props) {
                             >
                               Edit
                             </Link>
-                            {/* <button className="btn btn-danger btn-sm">
-                              Delete
-                            </button> */}
                           </td>
                         </tr>
                       ))}

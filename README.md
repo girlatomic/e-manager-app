@@ -38,6 +38,8 @@ Created using React, Node/Express, and MySQL.
 - Run `npm start` in project directory to start the Express server on port 5000
 - In another terminal, do `cd client` and run `npm start` to start the client in development mode with hot reloading in port 3000.
 
-## Notes
+## Acknowledgements
+
+User authentication, authorisation and management functionality added by my colleague Ellie Foote ([@elliefoote](https://github.com/elliefoote))
 
 _This is a student project that was created at [CodeOp](http://CodeOp.tech), a full stack development bootcamp in Barcelona._
