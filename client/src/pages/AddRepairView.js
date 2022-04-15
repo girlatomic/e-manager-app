@@ -36,8 +36,8 @@ const AddRepairView = (props) => {
   };
 
   return (
-    <Container>
-      <div className="mb-5">
+    <div className="content">
+      <div className="me-5">
         <h2>
           <AiOutlineForm />
           New Repair Order
@@ -55,7 +55,7 @@ const AddRepairView = (props) => {
         onHide={() => setModalShow(false)}
         modalInfo={modalInfo}
       />
-    </Container>
+    </div>
   );
 };
 

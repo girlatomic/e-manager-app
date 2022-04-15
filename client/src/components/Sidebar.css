@@ -1,36 +1,106 @@
-.nav-menu {
-    background-color:#07166c;
-    width: 200px;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    transition: 850ms;
+ul {
+  padding: 0;
+  margin: 0;
+}
+li {
+  list-style: none;
+  margin-top: 28px;
 }
 
-.nav-menu-items {
-    width: 100%;
+.side-menu {
+  position: fixed;
+  background: #120567;
+  width: 200px;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 30px 20px;
+  transition: width 0.2s ease-in;
 }
 
-.nav-menu.active {
-    left: 0;
-    transition: 350ms;
+.side-menu.inactive {
+  width: 80px;
 }
 
-.sb-link {
-    display: flex;
-    width: 100%;
-    height: 70px;
-    text-decoration: none;
-    font-size: 18px;
-    align-items: center;
+.side-menu .top-section {
+  position: relative;
 }
 
-.sb-link:hover {
-    background-color: #b1b122;
-}
-  
-.active {
-    background-color: #721aff;
+.side-menu .top-section .toggle-menu-btn {
+  color: rgb(140, 182, 255);
+  font-size: 39px;
+  position: absolute;
+  top: 40%;
+  right: 0px;
+  transform: translateY(-50%);
+  cursor: pointer;
 }
 
-  
+.side-menu.inactive .top-section .toggle-menu-btn {
+  right: 1px;
+}
+
+.side-menu .main-menu .menu-item {
+  color: rgb(215, 213, 213);
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.side-menu .main-menu .menu-item.active {
+  background: #721aff;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.side-menu .main-menu .menu-item:hover {
+  background: #b1b122;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.side-menu .main-menu {
+  margin: 20px 0;
+  position: relative;
+  max-height: 350px;
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+}
+
+.side-menu .main-menu .menu-item .menu-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.side-menu .main-menu .menu-item span {
+  position: absolute;
+  display: inline-block;
+  line-height: 40px;
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
+}
+
+.side-menu.inactive .main-menu .menu-item span {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 800px) {
+  .side-menu {
+    width: 80px;
+  }
+  .side-menu .main-menu .menu-item span {
+    position: absolute;
+    display: inline-block;
+    line-height: 40px;
+    opacity: 1;
+    transition: opacity 0.2s ease-in;
+  }
+}

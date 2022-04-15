@@ -46,8 +46,8 @@ const MySettings = (props) => {
   }
 
   return (
-    <div className="container">
-      <h2 className="mb-5">
+    <div className="content">
+      <h2 className="mb-5 me-5">
         <RiUserSettingsFill className="me-2" />
         My Settings
       </h2>

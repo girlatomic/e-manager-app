@@ -7,14 +7,8 @@
   font-family: "Lato", sans-serif;
 }
 
-.content {
-  display: flex;
-  width: 100%;
-  text-align: left;
-}
-
 h2 {
-  margin-top: 10px;
+  /* margin-top: 10px; */
   font-size: 35px;
   color: rgb(94, 94, 94);
   border-bottom: rgb(233, 231, 231) 1px solid;
@@ -24,19 +18,7 @@ h2 {
 h1 {
   font-size: 50px;
   color: rgb(255, 255, 255);
-  margin-bottom: 25px;
-}
-
-.home {
-  width: 100%;
-  font-size: 5rem;
-  background: linear-gradient(
-    90deg,
-    rgba(48, 16, 255, 1) 0%,
-    rgba(100, 115, 255, 1) 100%
-  );
-  margin: 0;
-  color: white;
+  margin-bottom: 10px;
 }
 
 table {
@@ -103,6 +85,18 @@ td {
   background: rgb(238, 146, 7);
 }
 
-.container {
-  width: 1200px;
+.content {
+  margin-left: 120px;
+  transition: margin-left 0.2s ease-in;
+  box-sizing: border-box;
+}
+
+.content.inactive {
+  margin-left: 30px;
+}
+
+@media only screen and (max-width: 800px) {
+  .content {
+    margin-left: 70px;
+  }
 }
