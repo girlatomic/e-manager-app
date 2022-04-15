@@ -26,7 +26,7 @@ li {
 }
 
 .side-menu .top-section .toggle-menu-btn {
-  color: #b1b122;
+  color: rgb(140, 182, 255);
   font-size: 39px;
   position: absolute;
   top: 40%;
@@ -55,7 +55,7 @@ li {
 }
 
 .side-menu .main-menu .menu-item:hover {
-  background: rgb(140, 182, 255);
+  background: #b1b122;
   border-radius: 5px;
   color: #fff;
 }

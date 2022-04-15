@@ -71,7 +71,6 @@ function Repairs(props) {
       <Row>
         <div className="col-md-12 mb-3 me-2">
           <div className="card me-5">
-            {/* <div className="card-header">All repairs</div> */}
             <div className="card-body">
               <div className="table">
                 <Table bordered responsive>
@@ -134,13 +133,13 @@ function Repairs(props) {
                           <td>
                             <Link
                               to={"/repairs/edit/" + r.repair_id}
-                              className="btn btn-success btn-sm me-2"
+                              className="btn btn-success btn-sm"
                             >
                               Edit
                             </Link>
-                            <button className="btn btn-danger btn-sm">
+                            {/* <button className="btn btn-danger btn-sm">
                               Delete
-                            </button>
+                            </button> */}
                           </td>
                         </tr>
                       ))}
