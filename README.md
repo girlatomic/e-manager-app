@@ -11,6 +11,9 @@ Created using React, Node/Express, and MySQL.
 
 ![repairsorder](/public/images/EM_repairorder.png)
 
+## Demo
+[e-manager Demo](https://gp-emanager-app.herokuapp.com/)
+
 ## Setup
 
 ### Dependencies
